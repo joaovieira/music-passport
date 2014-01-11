@@ -1,0 +1,34 @@
+@import "base";
+
+html, body { 
+	padding: 0px; 
+	height: 100%;
+}
+
+.navbar-brand{
+	font-family: 'Lobster', cursive;
+	font-size: 22px;
+}
+
+
+.panel-holder{
+	background: url("../images/festival.jpg") no-repeat center fixed;
+	@include background-size(cover);
+	padding: 80px 0px 0px;
+	height: 100%;
+
+	#panel-carousel{
+		padding-bottom: 30px;
+		height: inherit;
+
+		.panel-wrapper{
+			height: 100%;
+			padding: 10px 40px;			
+		}
+	}
+}
+
+.panel{
+	background-color: rgba(0,0,0,0.2);
+	padding: 20px;
+}
