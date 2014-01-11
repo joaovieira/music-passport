@@ -13,5 +13,5 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
   welcome: ->
     $('#panel-carousel').html @welcomeView.el
-    $("#panel-carousel").owlCarousel musicPassport.carouselOptions
+    #$("#panel-carousel").owlCarousel musicPassport.carouselOptions
   

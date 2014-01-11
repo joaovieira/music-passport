@@ -33,7 +33,7 @@ $ ->
 $(document).on 'fbStatusChange', (event, data) ->
     if data.status is 'connected'
         FB.api '/me', (response) ->
-            fb.user.set response #Store the newly authenticated FB user
+            musicPassport.user.set response #Store the newly authenticated FB user
     else
         musicPassport.user.set musicPassport.user.defaults #Reset current FB user
 
