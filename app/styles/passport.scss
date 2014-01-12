@@ -11,6 +11,39 @@ html, body {
 }
 
 
+/** Nav bat button and login **/
+.navbar-toggle{
+	&#menu{
+		padding: 6px 10px 2px;
+		border: 0px;
+	}
+	color: #777777;
+}
+
+.avatar{
+	img{ 
+		margin-left: 3px;
+		position: relative;
+		top: -2px;
+	}
+}
+
+.navbar-right .avatar{
+	display: none;
+}
+
+@media (min-width: $screen-md-min) {
+	.navbar-right .avatar{
+		display: inherit;
+		color: #777777;
+		line-height: 50px;
+	}
+}
+/** end of nav styling **/
+
+
+/** Panel and holder styling **/
+
 .panel-holder{
 	background: url("../images/festival.jpg") no-repeat center fixed;
 	@include background-size(cover);
@@ -33,9 +66,15 @@ html, body {
 	padding: 20px;
 }
 
+/** end of Panel styling **/
+
+
+/** Welcome page **/
+
 #welcome{
 	.festival-logo{
 		content: url("../images/sziget.png");
+		max-height: 80px;
 		margin: 0 auto;
 	}
 
@@ -45,11 +84,15 @@ html, body {
 		margin-top: 0px;
 	}
 
-	h2{
-		font-size: 32px;
-	}
-
-	p{
-		font-size: 17px;
-	}
+	h2{ font-size: 32px; }
+	p{ font-size: 17px; }
 }
+
+@media (min-width: $screen-md-min) {
+  #welcome {
+  	.festival-logo { max-height: 200px; }
+  	p { font-size: inherit; }
+  }
+}
+
+/** end of welcome page **/

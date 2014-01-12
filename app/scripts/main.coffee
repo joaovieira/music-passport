@@ -6,14 +6,6 @@ window.musicPassport =
   init: ->
     'use strict'
 
-    @carouselOptions =
-      items : 2
-      itemsTablet: [768,1]
-      itemsMobile : [479,1]
-      itemsScaleUp : true
-      pagination : false
-
-
     # init user
     @user = new musicPassport.Models.Profile()
 
@@ -27,12 +19,28 @@ window.musicPassport =
 $ ->
   'use strict'
   musicPassport.init()
+  
+  Evt.fbInit (access, fbUser) -> 
+    musicPassport.user.set fbUser #Store the newly authenticated FB user
+    musicPassport.router.navigate("home")
 
 
-# Handle logging in and out events from FB
+
+# Init EVRYTHNG object wrapper
+window.Evt = new Evrythng
+    evrythngApiKey: 'EyvifRsWvxEh4prtcQ6LQtSHAs9AF8ce2iuxomMFbCMkaXUvpxnvOUOAH6fDePuug66HRIGGiFcDQzF7'
+    evrythngAppId: '52d0185a55872c9a6d7b1616'
+    facebookAppId: '1449050295309307'
+    jQuery: jQuery
+    actionButton: "login-btn"
+
+
+### Handle logging in and out events from FB
 $(document).on 'fbStatusChange', (event, data) ->
-    if data.status is 'connected'
-        FB.api '/me', (response) ->
-            musicPassport.user.set response #Store the newly authenticated FB user
-    else
-        musicPassport.user.set musicPassport.user.defaults #Reset current FB user
+  if data.status is 'connected'
+    FB.api '/me', (response) ->
+      musicPassport.user.set response #Store the newly authenticated FB user
+    musicPassport.router.navigate "home"
+  else
+    musicPassport.user.set musicPassport.user.defaults #Reset current FB user
+###

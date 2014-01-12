@@ -1,19 +1,6 @@
 <!-- navigation -->
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-
-	<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-			Login
-		</button>
-
-		<a class="navbar-brand" href="#">Music Passport</a>
-	</div>
-
-	<div class="collapse navbar-collapse" id="navbar-collapse-1">
-		<ul id="login" class="nav navbar-nav navbar-right">
-		</ul>
-	</div>
-
+<nav id="navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<!-- navigation dependent of login -->
 </nav>
 
 

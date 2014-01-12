@@ -19,7 +19,8 @@ class musicPassport.Views.Login extends Backbone.View
     @
 
   
-  login: ->
+  login: (e) ->
+    e.stopPropagation()
     musicPassport.appView.trigger 'login'
 
 

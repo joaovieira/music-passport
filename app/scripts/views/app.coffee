@@ -20,16 +20,14 @@ class musicPassport.Views.App extends Backbone.View
 
   render: ->
     @$el.append @template @model.toJSON()
-    new musicPassport.Views.Login model: @model, el: '#login'
+    new musicPassport.Views.Login model: @model, el: '#navigation'
     @
 
 
-  login: ->
-    FB.login (response) ->
-    	console.log 'Logged in with facebook'
-    	# register evrythng user api key
+  loginHandler: ->
+    # Login with EVRYTHNG
+    alert 'cenas'
 
 
   logout: ->
   	FB.logout()
-  	console.log 'Logged out of facebook'
