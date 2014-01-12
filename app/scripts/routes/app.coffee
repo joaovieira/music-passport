@@ -9,9 +9,11 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
   initialize: ->
     #Caching the Welcome View
     @welcomeView = new musicPassport.Views.Welcome model: musicPassport.user
+    @welcomeView2 = new musicPassport.Views.Welcome model: musicPassport.user
 
 
   welcome: ->
-    $('#panel-carousel').html @welcomeView.el
-    #$("#panel-carousel").owlCarousel musicPassport.carouselOptions
+    $('#panel-carousel').append @welcomeView.el
+    $('#panel-carousel').append @welcomeView2.el
+    $("#panel-carousel").owlCarousel musicPassport.carouselOptions
   

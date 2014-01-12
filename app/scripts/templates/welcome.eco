@@ -1,6 +1,10 @@
-<div class="panel">
-	<h1>Sociogram</h1>
-	<p>A sample application that demonstrates how to use the Facebook JavaScript SDK and the Graph API.</p>
+<div id="welcome" class="panel">
+	<div class="festival-logo">
+		<img src="images/sziget.png" height="80"/>
+		<h1 class="navbar-brand">Music Passport</h1>
+	</div>
+	<h2>Your bracelet is your digital music passport</h2>
+	<p>Check in at concerts, collect rewards and share it with friends</p>
 	<p>
 		<a href="#me" class="btn btn-primary btn-large btn-login">Login with Facebook</a>
 	</p>

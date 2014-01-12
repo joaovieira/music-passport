@@ -15,20 +15,38 @@ html, body {
 	background: url("../images/festival.jpg") no-repeat center fixed;
 	@include background-size(cover);
 	padding: 80px 0px 0px;
-	height: 100%;
+	min-height: 100%;
+	border: 0px;
 
 	#panel-carousel{
-		padding-bottom: 30px;
 		height: inherit;
 
 		.panel-wrapper{
-			height: 100%;
-			padding: 10px 40px;			
+			min-height: 100%;
+			padding: 10px 40px 0px;			
 		}
 	}
 }
 
 .panel{
-	background-color: rgba(0,0,0,0.2);
+	background-color: rgba(255,255,255,0.5);
 	padding: 20px;
+}
+
+#welcome{
+	.festival-logo{
+		.navbar-brand{
+			width: 100%;
+			padding-top: 0px;
+			margin-top: 0px;
+		}
+	}
+
+	h2{
+		font-size: 32px;
+	}
+
+	p{
+		font-size: 17px;
+	}
 }
