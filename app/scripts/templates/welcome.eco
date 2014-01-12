@@ -1,8 +1,7 @@
 <div id="welcome" class="panel">
 	<div class="festival-logo">
-		<img src="images/sziget.png" height="80"/>
-		<h1 class="navbar-brand">Music Passport</h1>
 	</div>
+		<h1 class="navbar-brand">Music Passport</h1>
 	<h2>Your bracelet is your digital music passport</h2>
 	<p>Check in at concerts, collect rewards and share it with friends</p>
 	<p>

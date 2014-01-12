@@ -35,11 +35,14 @@ html, body {
 
 #welcome{
 	.festival-logo{
-		.navbar-brand{
-			width: 100%;
-			padding-top: 0px;
-			margin-top: 0px;
-		}
+		content: url("../images/sziget.png");
+		margin: 0 auto;
+	}
+
+	.navbar-brand{
+		width: 100%;
+		padding-top: 0px;
+		margin-top: 0px;
 	}
 
 	h2{
