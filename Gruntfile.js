@@ -203,7 +203,10 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+            css: [
+                '<%= yeoman.dist %>/styles/{,*/}*.css',
+                '<%= yeoman.dist %>/bower_components/{,*/}*.css',
+            ],
             options: {
                 dirs: ['<%= yeoman.dist %>']
             }
@@ -223,6 +226,7 @@ module.exports = function (grunt) {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
                         '.tmp/styles/{,*/}*.css',
+                        '.tmp/bower_components/**/*.css',
                         '<%= yeoman.app %>/styles/{,*/}*.css'
                     ]
                 }
@@ -264,6 +268,16 @@ module.exports = function (grunt) {
                         'bower_components/sass-bootstrap/fonts/*.*'
                     ]
                 }]
+            },
+            styles: {
+                expand: true,
+                cwd: '<%= yeoman.app %>',
+                dest: '.tmp/',
+                src: [
+                    'styles/{,*/}*.css',
+                    'bower_components/owlcarousel/owl-carousel/owl.carousel.css',
+                    'bower_components/owlcarousel/owl-carousel/owl.theme.css'
+                ]
             }
         },
         bower: {
@@ -350,13 +364,13 @@ module.exports = function (grunt) {
         'createDefaultTemplate',
         'eco',
         'compass:dist',
+        'copy',
         'useminPrepare',
         //'imagemin',
         'htmlmin',
         'concat',
         'cssmin',
         'uglify',
-        'copy',
         'rev',
         'usemin'
     ]);
