@@ -51,4 +51,4 @@ class musicPassport.Views.App extends Backbone.View
     musicPassport.user.set musicPassport.user.defaults #Reset current FB user
     musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }###
 
-  	FB.logout()
+    FB.logout()

@@ -2,7 +2,7 @@
 
 class musicPassport.Routers.AppRouter extends Backbone.Router
 
-	routes:
+  routes:
     "": "welcome"
     "lineup": "lineup"
     ":thngid/home": "home"
@@ -26,7 +26,7 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
   welcome: ->
     @owl.removeItem() for i in [0..1]
-   	@owl.addItem @welcomeView.el
+    @owl.addItem @welcomeView.el
 
 
   home: ->
