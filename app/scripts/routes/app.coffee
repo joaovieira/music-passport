@@ -21,14 +21,14 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
     @welcomeView = new musicPassport.Views.Welcome model: musicPassport.user
 
     $("#panel-carousel").owlCarousel @carouselOptions
-    #@owl = $(".owl-carousel").data 'owlCarousel'
+    @owl = $(".owl-carousel").data 'owlCarousel'
 
 
   welcome: ->
     ###@owl.removeItem() for i in [0..1]
    	@owl.addItem @welcomeView.el###
 
-    $(".panel-holder").html "TESTTTTEEE"
+    $(".panel-holder").append "TESTTTTEEE"
 
 
   home: ->
