@@ -62,6 +62,11 @@ $(document).on 'fbStatusChange', (event, data) ->
           thngid = musicPassport.passport.get 'thngid'
           musicPassport.router.navigate "#{thngid}/home", { trigger: true }
   else
-    Evt.options.evrythngApiKey = access.evrythngAppApiKey
-    musicPassport.user.set musicPassport.user.defaults #Reset current FB user
-    musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
+    # Logout from evrythng
+    Evt.request
+        url: '/auth/all/logout'
+        method: 'post'
+      , (access) ->
+        Evt.options.evrythngApiKey = access.evrythngAppApiKey
+        musicPassport.user.set musicPassport.user.defaults #Reset current FB user
+        musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }

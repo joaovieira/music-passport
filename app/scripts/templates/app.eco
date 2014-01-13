@@ -6,7 +6,7 @@
 
 <!-- content -->
 <div class="jumbotron panel-holder">
-  <div id="panel-carousel" class="owl-carousel">
+  <div id="panel-carousel">
 
   </div>
 </div>

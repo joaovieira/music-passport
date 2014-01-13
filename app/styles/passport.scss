@@ -6,11 +6,11 @@ html, body {
 }
 
 h2 {
-	font-family: 'Proxima Nova Bold'
+	font-family: 'Proxima Nova Bold', 'Helvetica Neue'
 }
 
 p {
-	font-family: 'Proxima Nova Light'
+	font-family: 'Proxima Nova Light', 'Helvetica Neue'
 }
 
 #mfPreviewBar{
@@ -57,11 +57,12 @@ p {
 /** Panel and holder styling **/
 
 .panel-holder{
-	background: url("../images/festival.jpg") no-repeat center fixed;
-	@include background-size(cover);
+	/*background: url("../images/festival.jpg") no-repeat center fixed;
+	@include background-size(cover);*/
 	padding: 80px 0px 0px;
 	min-height: 100%;
 	border: 0px;
+	margin-bottom: 0px;
 
 	#panel-carousel{
 		height: inherit;
