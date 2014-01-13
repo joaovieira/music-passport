@@ -57,8 +57,8 @@ p {
 /** Panel and holder styling **/
 
 .panel-holder{
-	/*background: url("../images/festival.jpg") no-repeat center fixed;
-	@include background-size(cover);*/
+	background: url("../images/festival.jpg") no-repeat center fixed;
+	@include background-size(cover);
 	padding: 80px 0px 0px;
 	min-height: 100%;
 	border: 0px;
