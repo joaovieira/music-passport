@@ -34,23 +34,21 @@ window.Evt = new Evrythng
 
 # Handle logging in and out events from FB
 $(document).on 'fbStatusChange', (event, data) ->
-  # Evt.fbCallback() #register auth with EVRTYHNG
-
   if data.status is 'connected'
     FB.api '/me', (response) ->
       # Test
-      data = 
+      ###data = 
         'email': "joaoguerravieira@gmail.com"
-        'password': "Click12345"
+        'password': "Click12345"###
       
       # Deploy
-      ###data =
+      data =
         "access": 
-          "token": data.authResponse.accessToken###
+          "token": data.authResponse.accessToken
 
       Evt.request
-        url: '/auth/evrythng'
-        #url: "/auth/facebook"
+        #url: '/auth/evrythng'
+        url: "/auth/facebook"
         data: data
         method: 'post'
       , (access) ->
@@ -64,9 +62,9 @@ $(document).on 'fbStatusChange', (event, data) ->
   else
     # Logout from evrythng
     Evt.request
-        url: '/auth/all/logout'
-        method: 'post'
-      , (access) ->
-        Evt.options.evrythngApiKey = access.evrythngAppApiKey
-        musicPassport.user.set musicPassport.user.defaults #Reset current FB user
-        musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
+      url: '/auth/all/logout'
+      method: 'post'
+    , (access) ->
+      Evt.options.evrythngApiKey = access.evrythngAppApiKey
+      musicPassport.user.set musicPassport.user.defaults #Reset current FB user
+      musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }

@@ -9,6 +9,7 @@ class musicPassport.Views.Login extends Backbone.View
     'click .logout': 'logout'
     'click .brand-logo, .passport': 'home'
     'click .lineup': 'viewLineup'
+    'click .navbar-collapse li > a': 'toggleNavigation'
 
 
   initialize: ->
@@ -40,6 +41,11 @@ class musicPassport.Views.Login extends Backbone.View
       thngid = musicPassport.passport.get 'thngid'
       musicPassport.router.navigate "#{thngid}/home", { trigger: true }
 
+
   viewLineup: (e) ->
     e.preventDefault()
     musicPassport.router.navigate "lineup", { trigger: true }
+
+
+  toggleNavigation: ->
+    @$(".navbar-toggle:visible").click()

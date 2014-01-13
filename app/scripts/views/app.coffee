@@ -26,7 +26,7 @@ class musicPassport.Views.App extends Backbone.View
 
   login: (e) ->
     e.preventDefault()
-    data = 
+    ###data = 
       'email': "joaoguerravieira@gmail.com"
       'password': "Click12345"
 
@@ -41,14 +41,14 @@ class musicPassport.Views.App extends Backbone.View
         Evt.options.evrythngAppApiKey = Evt.options.evrythngApiKey
         Evt.options.evrythngApiKey = access.evrythngApiKey
         thngid = musicPassport.passport.get 'thngid'
-        musicPassport.router.navigate "#{thngid}/home", { trigger: true }
+        musicPassport.router.navigate "#{thngid}/home", { trigger: true }###
 
-    #FB.login null, { scope: 'email,user_birthday' }
+    FB.login null, { scope: 'email,user_birthday' }
 
 
   logout: ->
-    Evt.options.evrythngApiKey = Evt.options.evrythngAppApiKey
+    ###Evt.options.evrythngApiKey = Evt.options.evrythngAppApiKey
     musicPassport.user.set musicPassport.user.defaults #Reset current FB user
-    musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
+    musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }###
 
-  	#FB.logout()
+  	FB.logout()
