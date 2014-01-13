@@ -25,10 +25,8 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
 
   welcome: ->
-    ###@owl.removeItem() for i in [0..1]
-   	@owl.addItem @welcomeView.el###
-
-    $(".panel-holder").append "TESTTTTEEE"
+    @owl.removeItem() for i in [0..1]
+   	@owl.addItem @welcomeView.el
 
 
   home: ->

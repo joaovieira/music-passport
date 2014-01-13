@@ -1,6 +1,6 @@
 <% if not @exists :%>
 	<div class="panel">
-		<h2>Oops! This bracelet does't exist</h2>
+		<h2>Oops! This bracelet doesn't exist</h2>
 		<p>Please scan a valid bracelet and claim it to start using your passport</p>
 	</div>
 <% else if not @own :%>
