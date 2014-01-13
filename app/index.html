@@ -20,6 +20,18 @@
   <!-- build:js scripts/vendor/modernizr.js -->
   <script src="bower_components/modernizr/modernizr.js"></script>
   <!-- endbuild -->
+  <script type="text/javascript">
+    (function() {
+        var path = '//easy.myfonts.net/v1/js?sid=148510(font-family=Proxima+Nova+Regular)&sid=148514(font-family=Proxima+Nova+Bold)&sid=148547(font-family=Proxima+Nova+Semibold)&sid=148550(font-family=Proxima+Nova+Light)&key=bzSF9YFubn',
+            protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+            trial = document.createElement('script');
+        trial.type = 'text/javascript';
+        trial.async = true;
+        trial.src = protocol + path;
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(trial);
+    })();
+  </script>
 </head>
 <body>
   <!--[if lt IE 10]>
@@ -49,18 +61,6 @@
   <script src="bower_components/owlcarousel/owl-carousel/owl.carousel.js"></script>
   <script src="scripts/vendor/facebook.js"></script>
   <script src="scripts/vendor/evrythng.js"></script>
-  <script type="text/javascript">
-    (function() {
-        var path = '//easy.myfonts.net/v1/js?sid=148510(font-family=Proxima+Nova+Regular)&sid=148514(font-family=Proxima+Nova+Bold)&sid=148547(font-family=Proxima+Nova+Semibold)&sid=148550(font-family=Proxima+Nova+Light)&key=bzSF9YFubn',
-            protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
-            trial = document.createElement('script');
-        trial.type = 'text/javascript';
-        trial.async = true;
-        trial.src = protocol + path;
-        var head = document.getElementsByTagName("head")[0];
-        head.appendChild(trial);
-    })();
-  </script>
   <!-- endbuild -->
 
   <!-- build:js scripts/plugins.js -->
