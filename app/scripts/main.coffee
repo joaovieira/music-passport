@@ -42,7 +42,7 @@ $(document).on 'fbStatusChange', (event, data) ->
         'password': "Click12345"###
       data =
         "access": 
-          "access-token": data.authResponse.accessToken
+          "token": data.authResponse.accessToken
 
       Evt.request
         #url: '/auth/evrythng'
