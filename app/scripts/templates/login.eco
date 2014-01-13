@@ -16,8 +16,8 @@
 <div class="collapse navbar-collapse" id="navbar-collapse-1">
 	<% if not not @id : %>
 		<ul id="login" class="nav navbar-nav">
-  			<li><a href="#" id="lineup">My Passport</a></li>
-  			<li><a href="#" id="lineup">Lineup</a></li>
+  			<li><a href="#" class="passport">My Passport</a></li>
+  			<li><a href="#" class="lineup">Lineup</a></li>
 		</ul>
 	<% end %>
 

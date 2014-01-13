@@ -26,14 +26,20 @@ class musicPassport.Views.Login extends Backbone.View
     musicPassport.appView.trigger 'login', e
 
 
-  logout: ->
+  logout: (e) ->
+    e.preventDefault()
     musicPassport.appView.trigger 'logout'
 
 
-  home: ->
-    thngid = musicPassport.passport.get 'thngid'
-    musicPassport.router.navigate "#{thngid}", { trigger: true }
+  home: (e) ->
+    e.preventDefault()
+    if /home/.test Backbone.history.fragment
+      musicPassport.router.owl.goTo 0
+      $("body").animate scrollTop: 0
+    else
+      thngid = musicPassport.passport.get 'thngid'
+      musicPassport.router.navigate "#{thngid}/home", { trigger: true }
 
-
-  viewLineup: ->
-  	musicPassport.router.navigate "lineup", { trigger: true }
+  viewLineup: (e) ->
+    e.preventDefault()
+    musicPassport.router.navigate "lineup", { trigger: true }

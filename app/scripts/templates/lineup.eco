@@ -1,0 +1,4 @@
+<div id="welcome" class="panel">
+	<h2><%= @test %></h2>
+</div>
+

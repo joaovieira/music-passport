@@ -4,9 +4,9 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
 	routes:
     "": "welcome"
+    "lineup": "lineup"
     ":thngid/home": "home"
     ":thngid": "start"
-    "lineup": "lineup"
 
 
   initialize: ->
@@ -25,13 +25,13 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
 
   welcome: ->
-    @owl.removeItem() for i in [0..2]
+    @owl.removeItem() for i in [0..1]
    	@owl.addItem @welcomeView.el
 
 
   home: ->
     if musicPassport.user.isAuthenticated()
-      @owl.removeItem() for i in [0..2]
+      @owl.removeItem() for i in [0..1]
 
       passportView = new musicPassport.Views.Home 
         model: musicPassport.passport
@@ -50,3 +50,6 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
 
   lineup: ->
+    @owl.removeItem() for i in [0..1]
+    lineupView = new musicPassport.Views.Lineup model: musicPassport.lineup
+    @owl.addItem lineupView.el

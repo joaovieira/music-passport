@@ -26,7 +26,7 @@
 	<div id="playing" class="panel">
 		<p>Also playing</p>
 		<p>Your next show in 2 hours</p>
-		<a href="#" class="passport">Check my concerts</a>
+		<a href="#" class="passport-full">Check my concerts</a>
 	</div>
 <% end %>
 <div id="lineup" class="panel">

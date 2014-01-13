@@ -10,15 +10,12 @@ class musicPassport.Views.Home extends Backbone.View
   events: 
     'click .btn-claim': 'activate'
     'click .checkin': 'checkin'
-    'click .passport': "viewFullPassport"
+    'click .passport-full': "viewFullPassport"
 
 
   initialize: (options) ->
     @owl = options.owl
     thngid = options.model.get 'thngid'
-
-    @model.on "change", @render, this
-
 
     # read the passport
     Evt.readThng { thng: thngid }, (thng) =>
@@ -34,9 +31,11 @@ class musicPassport.Views.Home extends Backbone.View
         else
           @model.set 'exists', true
 
+        @render()
     , (error) =>
       if error.status is 400
         @model.set 'exists', false
+        @render()
 
 
   render: ->
@@ -64,8 +63,8 @@ class musicPassport.Views.Home extends Backbone.View
       evrythngApiKey: Evt.options.evrythngApiKey
     
     Evt.request query, (response) =>
-      @model.set "own", true
-      @model.set "new", false
+      @model.set { "own": true, "new": false }
+      @render()
 
 
   checkin: ->

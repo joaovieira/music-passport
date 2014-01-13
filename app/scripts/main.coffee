@@ -9,6 +9,7 @@ window.musicPassport =
     # init user
     @user = new musicPassport.Models.Profile()
     @passport = new musicPassport.Models.Passport()
+    @lineup = new musicPassport.Models.Lineup()
 
     # init app
     @appView = new musicPassport.Views.App model: @user
@@ -37,24 +38,30 @@ $(document).on 'fbStatusChange', (event, data) ->
 
   if data.status is 'connected'
     FB.api '/me', (response) ->
-      ###data = 
+      # Test
+      data = 
         'email': "joaoguerravieira@gmail.com"
-        'password': "Click12345"###
-      data =
+        'password': "Click12345"
+      
+      # Deploy
+      ###data =
         "access": 
-          "token": data.authResponse.accessToken
+          "token": data.authResponse.accessToken###
 
       Evt.request
-        #url: '/auth/evrythng'
-        url: "/auth/facebook"
+        url: '/auth/evrythng'
+        #url: "/auth/facebook"
         data: data
         method: 'post'
       , (access) ->
         if access.evrythngApiKey
           musicPassport.user.set response #Store the newly authenticated FB user
-          musicPassport.user.set 'userApiKey', access.evrythngApiKey
+          musicPassport.user.set 'authenticated', true
+          Evt.options.evrythngAppApiKey = Evt.options.evrythngApiKey
+          Evt.options.evrythngApiKey = access.evrythngApiKey
           thngid = musicPassport.passport.get 'thngid'
           musicPassport.router.navigate "#{thngid}/home", { trigger: true }
   else
+    Evt.options.evrythngApiKey = access.evrythngAppApiKey
     musicPassport.user.set musicPassport.user.defaults #Reset current FB user
     musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
