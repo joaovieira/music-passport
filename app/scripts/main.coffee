@@ -65,6 +65,6 @@ $(document).on 'fbStatusChange', (event, data) ->
       url: '/auth/all/logout'
       method: 'post'
     , (access) ->
-      Evt.options.evrythngApiKey = access.evrythngAppApiKey
+      Evt.options.evrythngApiKey = Evt.options.evrythngAppApiKey
       musicPassport.user.set musicPassport.user.defaults #Reset current FB user
       musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
