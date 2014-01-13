@@ -7,10 +7,10 @@
     	<span class="caret"></span>
 		</button>
 	<% else : %>
-		<button id="login-btn" type="button" class="navbar-toggle login" data-toggle="collapse" data-target="#navbar-collapse-1">Login</button>
+		<button type="button" class="navbar-toggle login" data-toggle="collapse" data-target="#navbar-collapse-1">Login</button>
 	<% end %>
 
-	<a class="navbar-brand" href="#">Music Passport</a>
+	<a class="navbar-brand brand-logo" href="#">Music Passport</a>
 </div>
 
 <div class="collapse navbar-collapse" id="navbar-collapse-1">
@@ -29,7 +29,7 @@
   		</li>
   		<li><a href="#" class="logout">Logout</a></li>
 		<% else : %>
-  		<li><a href="#" id="login-btn" class="login">Login</a></li>
+  		<li><a href="#" class="login">Login</a></li>
 		<% end %>
 	</ul>
 </div>

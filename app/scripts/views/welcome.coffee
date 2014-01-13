@@ -8,7 +8,7 @@ class musicPassport.Views.Welcome extends Backbone.View
   template: JST['app/scripts/templates/welcome']
 
   initialize: ->
-    @model.on "change", this.showHideButtons, this
+    @model.on "change", @showHideButtons, this
     @render()
 
 

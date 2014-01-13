@@ -7,6 +7,8 @@ class musicPassport.Views.Login extends Backbone.View
   events: 
     'click .login': 'login'
     'click .logout': 'logout'
+    'click .brand-logo, .passport': 'home'
+    'click .lineup': 'viewLineup'
 
 
   initialize: ->
@@ -18,13 +20,20 @@ class musicPassport.Views.Login extends Backbone.View
     @$el.html @template @model.toJSON()
     @
 
-  
-  ###
+ 
   login: (e) ->
     e.stopPropagation()
-    musicPassport.appView.trigger 'login'
-  ###
+    musicPassport.appView.trigger 'login', e
 
 
   logout: ->
     musicPassport.appView.trigger 'logout'
+
+
+  home: ->
+    thngid = musicPassport.passport.get 'thngid'
+    musicPassport.router.navigate "#{thngid}", { trigger: true }
+
+
+  viewLineup: ->
+  	musicPassport.router.navigate "lineup", { trigger: true }

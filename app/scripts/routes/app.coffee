@@ -3,14 +3,13 @@
 class musicPassport.Routers.AppRouter extends Backbone.Router
 
 	routes:
-  	"/:thngid": "welcome"
-  	"/:thngid/home": "home"
+    "": "welcome"
+    ":thngid/home": "home"
+    ":thngid": "start"
+    "lineup": "lineup"
 
 
   initialize: ->
-    #Caching the Welcome View
-    @welcomeView = new musicPassport.Views.Welcome model: musicPassport.user
-
     @carouselOptions =
       items : 2
       itemsTablet: [768,1]
@@ -18,22 +17,36 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
       itemsScaleUp : true
       pagination : false
 
+    #Caching the Welcome View
+    @welcomeView = new musicPassport.Views.Welcome model: musicPassport.user
 
-  welcome: (thngid) ->
-  	# get thng from EVRTYHNG engine
-
-  	# if thng is activated and user logged in go to home
-
-  	# else register or login
-    $('#panel-carousel').append @welcomeView.el
     $("#panel-carousel").owlCarousel @carouselOptions
+    @owl = $(".owl-carousel").data 'owlCarousel'
+
+
+  welcome: ->
+    @owl.removeItem() for i in [0..2]
+   	@owl.addItem @welcomeView.el
 
 
   home: ->
-    @homeView = new musicPassport.Views.Home()
-    @passportView new musicPassport.Views.Passport()
+    if musicPassport.user.isAuthenticated()
+      @owl.removeItem() for i in [0..2]
 
-    $('#panel-carousel').append @homeView.el
-    $('#panel-carousel').append @passportView.el
-    $("#panel-carousel").owlCarousel @carouselOptions
-  
+      passportView = new musicPassport.Views.Home 
+        model: musicPassport.passport
+        owl: @owl
+    else
+      @navigate "", { trigger: true }
+
+
+  start: (thngid) ->
+    musicPassport.passport.set 'thngid', thngid
+
+    if musicPassport.user.isAuthenticated()
+      @navigate "#{thngid}/home", { trigger: true }
+    else
+      @welcome()
+
+
+  lineup: ->

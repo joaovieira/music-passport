@@ -1,0 +1,35 @@
+<% if not @exists :%>
+	<div class="panel">
+		<h2>Oops! This bracelet does't exist</h2>
+		<p>Please scan a valid bracelet and claim it to start using your passport</p>
+	</div>
+<% else if not @own :%>
+	<% if @new :%>
+		<div class="panel">
+			<h2>Congratulations! You've got a new fancy accessory</h2>
+			<p>This bracelet is not registered. Claim it and start using your passport</p>
+			<p>
+				<a href="#" class="btn btn-primary btn-large btn-claim">Claim my bracelet</a>
+			</p>
+		</div>
+	<% else :%>
+		<div class="panel">
+			<h2>Getting new friends?</h2>
+			<p>This isn't your bracelet. Please scan yours to use your passport</p>
+		</div>
+	<% end %>
+<% else :%>
+	<div id="viewing" class="panel">
+		<p>You're currently watching</p>
+		<a href="#" class="checkin">Check in concert!</a>
+	</div>
+	<div id="playing" class="panel">
+		<p>Also playing</p>
+		<p>Your next show in 2 hours</p>
+		<a href="#" class="passport">Check my concerts</a>
+	</div>
+<% end %>
+<div id="lineup" class="panel">
+	<p>View lineup</p>
+	<a href="#" class="lineup">View</a>
+</div>

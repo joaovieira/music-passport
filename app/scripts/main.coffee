@@ -8,6 +8,7 @@ window.musicPassport =
 
     # init user
     @user = new musicPassport.Models.Profile()
+    @passport = new musicPassport.Models.Passport()
 
     # init app
     @appView = new musicPassport.Views.App model: @user
@@ -19,10 +20,6 @@ window.musicPassport =
 $ ->
   'use strict'
   musicPassport.init()
-  
-  Evt.fbInit (access, fbUser) -> 
-    musicPassport.user.set fbUser #Store the newly authenticated FB user
-    musicPassport.router.navigate("home")
 
 
 
@@ -32,15 +29,32 @@ window.Evt = new Evrythng
     evrythngAppId: '52d0185a55872c9a6d7b1616'
     facebookAppId: '1449050295309307'
     jQuery: jQuery
-    actionButton: "login-btn"
 
 
-### Handle logging in and out events from FB
+# Handle logging in and out events from FB
 $(document).on 'fbStatusChange', (event, data) ->
+  # Evt.fbCallback() #register auth with EVRTYHNG
+
   if data.status is 'connected'
     FB.api '/me', (response) ->
-      musicPassport.user.set response #Store the newly authenticated FB user
-    musicPassport.router.navigate "home"
+      ###data = 
+        'email': "joaoguerravieira@gmail.com"
+        'password': "Click12345"###
+      data =
+        "access": 
+          "access-token": data.authResponse.accessToken
+
+      Evt.request
+        #url: '/auth/evrythng'
+        url: "/auth/facebook"
+        data: data
+        method: 'post'
+      , (access) ->
+        if access.evrythngApiKey
+          musicPassport.user.set response #Store the newly authenticated FB user
+          musicPassport.user.set 'userApiKey', access.evrythngApiKey
+          thngid = musicPassport.passport.get 'thngid'
+          musicPassport.router.navigate "#{thngid}/home", { trigger: true }
   else
     musicPassport.user.set musicPassport.user.defaults #Reset current FB user
-###
+    musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }

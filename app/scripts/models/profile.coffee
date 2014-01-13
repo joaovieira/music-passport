@@ -12,3 +12,8 @@ class musicPassport.Models.Profile extends Backbone.Model
     "link": ""
     "locale": ""
     "timezone": ""
+    "authenticated": false
+
+
+  isAuthenticated: ->
+    @get 'authenticated'
