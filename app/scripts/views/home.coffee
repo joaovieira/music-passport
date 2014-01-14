@@ -10,7 +10,7 @@ class musicPassport.Views.Home extends Backbone.View
   events: 
     'click .btn-claim': 'activate'
     'click .checkin': 'checkin'
-    'click .passport-full': "viewFullPassport"
+    'click .passport-details': "viewPassportDetails"
 
 
   initialize: (options) ->
@@ -45,7 +45,7 @@ class musicPassport.Views.Home extends Backbone.View
     @$el.html @template 
       passport: @model.toJSON()
       closerStage: @closerStage
-      otherStages: @otherStages
+      otherStages: _.filter @otherStages, (stage) -> not not stage.properties?.playing
 
     @owl.addItem @el
 
@@ -57,8 +57,10 @@ class musicPassport.Views.Home extends Backbone.View
 
   refresh: ->
     if concert = @model.getNextConcert() 
-      detailsConcert = musicPassport.lineup.getConcert  concert.get "key"
-      @$(".next-concert #band").text "#{detailsConcert.band} (#{detailsConcert.startTime})"
+      detailsConcert = musicPassport.lineup.getConcert concert.get "key"
+      date = new Date(detailsConcert.startTime)
+      time = musicPassport.lineup.getTime date
+      @$(".next-concert #band").text "#{detailsConcert.band} (#{time})"
       @$(".next-concert").show()
     else
       @$(".next-concert").hide()
@@ -76,19 +78,32 @@ class musicPassport.Views.Home extends Backbone.View
           "owner": musicPassport.user.get "id"
         thng: @model.get "thngid"
       method: 'post'
-      evrythngApiKey: Evt.options.evrythngApiKey
     
     Evt.request query, (response) =>
       @model.set { "own": true, "new": false }
       @render()
 
 
-  checkin: ->
-    Evt.checkin { thng: @model.get("thngid") }, ->
-      # set stamp on home screen
+  checkin: (e) ->
+    e.preventDefault()
+
+    currentTime = new Date().getTime()
+    query = 
+      url: '/actions/checkins'
+      data:
+        type: "checkins"
+        thng: @model.get "thngid"
+        timestamp: currentTime
+        customFields:
+          "concert": @closerStage.properties.playing
+      method: 'post'
+
+    Evt.request query, (result) =>
+      @model.checkinConcert currentTime, result.customFields.concert
+      @render()
 
 
-  viewFullPassport: (e) ->
+  viewPassportDetails: (e) ->
   	e.preventDefault()
   	@owl.next()
   	$("body").animate scrollTop: 0
@@ -117,11 +132,13 @@ class musicPassport.Views.Home extends Backbone.View
         # not close to any stage
 
       Evt.request { url: "/search", params: queryAll }, (result) =>
-        #if @closerStage
+        others = result.thngs
+        if @closerStage
           # filter thngs to remove closer stage
+          others = _.filter result.thngs, (stage) => stage.id isnt @closerStage.id
 
         @otherStages = []
-        for stage in result.thngs
+        for stage in others
           stage.checkinCount = 0
           @otherStages.push stage
 

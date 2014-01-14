@@ -19,5 +19,7 @@ class musicPassport.Views.Passport extends Backbone.View
       concert = _.extend concert, musicPassport.lineup.getConcert band.get('key')
       concerts.push concert
 
-    @$el.html @template { concerts: concerts }
+    _.sortBy concerts, (concert) -> concert.startTime
+
+    @$el.html @template { concerts: concerts, getTime: musicPassport.lineup.getTime }
     @

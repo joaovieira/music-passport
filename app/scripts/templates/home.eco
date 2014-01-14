@@ -20,17 +20,33 @@
 	<% end %>
 <% else :%>
 	<div id="viewing" class="panel">
-		<p>You're currently watching</p>
-		<p><%= @closerStage.checkinCount %></p>
-		<a href="#" class="checkin">Check in concert!</a>
+		<% if @closerStage and not not @closerStage.properties.playing : %>
+			<p>You're currently watching:</p>
+			<h2><%= @closerStage.properties.playing %></h2>
+			<p><%= @closerStage.checkinCount %> checked at this concert</p>
+			<a href="#" class="checkin">Check in concert!</a>
+		<% else : %>
+			<p>There are no concerts near you</p>
+		<% end %>
 	</div>
 	<div id="playing" class="panel">
-		<p>Also playing</p>
-		<p><%= @otherStages.checkinCount %></p>
+		<% if @otherStages.length : %>
+			<p>Also playing:</p>
+			<% for stage in @otherStages : %>
+				<p><%= "#{stage.name}: #{stage.properties.playing} #{stage.checkinCount}" %></p>
+			<% end %>
+		<% else : %>
+			<% if @closerStage and not not @closerStage.properties.playing : %>
+				<p>There are no other bands playing now</p>
+			<% else : %>
+				<p>There are no bands playing now</p>
+		<% end %>
+
 		<div class="next-concert">
-			<p>Your next show: <span id="band"></span></p>
+			<p>Your next show:</p>
+			<span id="band"></span></p>
+			<a href="#" class="passport-details">Check my concerts</a>
 		</div>
-		<a href="#" class="passport-full">Check my concerts</a>
 	</div>
 <% end %>
 <div id="lineup" class="panel">

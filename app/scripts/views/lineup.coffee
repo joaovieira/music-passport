@@ -17,16 +17,8 @@ class musicPassport.Views.Lineup extends Backbone.View
 
   render: ->
     # todo: check user authenticated and valid passport
-    @$el.html @template { lineup: @model, timeHelper: @timeHelper }
+    @$el.html @template { lineup: @model, getTime: @model.getTime }
     @
-
-
-  timeHelper: (timeStr) -> 
-    dt = new Date()
-    time = timeStr.match /(\d+)(?::(\d\d))?/i
-    dt.setHours parseInt(time[1], 10)
-    dt.setMinutes(parseInt(time[2], 10) || 0)
-    dt
 
 
   addToPassport: (e) ->

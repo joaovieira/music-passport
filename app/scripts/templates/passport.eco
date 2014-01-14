@@ -2,7 +2,7 @@
 	<h2>My Passport</h2>
 	<% for concert in @concerts : %>
 		<p>
-			<%= "#{concert.band} (#{concert.startTime} - #{concert.finishTime})" %>
+			<%= "#{concert.band} (#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %>
 			<div class="stamp <%= if concert.seen then 'seen' else 'unseen' %>"><%= concert.seen %></div>
 		</p>
 	<% end %>

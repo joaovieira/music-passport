@@ -5,7 +5,7 @@
 		<% for concert in concerts.mainStage : %>
 			<p>
 				<span class="band"><%= concert.band %></span>
-				<span> (<%= concert.startTime %>)</span>
+				<span> <%= "(#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %></span>
 				<a href="#" class="passport-add">Add to passport</a>
 			</p>
 		<% end %>
@@ -13,7 +13,7 @@
 		<% for concert in concerts.secondaryStage : %>
 			<p>
 				<span class="band"><%= concert.band %></span>
-				<span> (<%= concert.startTime %>) %></span>
+				<span> (<%= @getTime concert.startTime %>) %></span>
 				<a href="#" class="passport-add">Add to passport</a>
 			</p>
 		<% end %>
