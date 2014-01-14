@@ -13,7 +13,7 @@ class musicPassport.Views.Login extends Backbone.View
 
 
   initialize: ->
-    @model.on "change", this.render, this
+    @model.on "change", @render, this
     @render()
 
 

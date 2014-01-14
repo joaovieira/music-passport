@@ -1,4 +1,10 @@
 <div id="passport" class="panel">
-	<p>Your concert passport</p>
+	<h2>My Passport</h2>
+	<% for concert in @concerts : %>
+		<p>
+			<%= "#{concert.band} (#{concert.startTime} - #{concert.finishTime})" %>
+			<div class="stamp <%= if concert.seen then 'seen' else 'unseen' %>"><%= concert.seen %></div>
+		</p>
+	<% end %>
 </div>
 

@@ -47,12 +47,8 @@ class musicPassport.Views.App extends Backbone.View
 
 
   logout: ->
-    Evt.request
-      url: '/auth/all/logout'
-      method: 'post'
-    , (access) ->
-      Evt.options.evrythngApiKey = Evt.options.evrythngAppApiKey
-      musicPassport.user.set musicPassport.user.defaults #Reset current FB user
-      musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }
+    ###Evt.options.evrythngApiKey = Evt.options.evrythngAppApiKey
+    musicPassport.user.set musicPassport.user.defaults #Reset current FB user
+    musicPassport.router.navigate "#{musicPassport.passport.get("thngid")}", { trigger: true }###
 
-    #FB.logout()
+    FB.logout()

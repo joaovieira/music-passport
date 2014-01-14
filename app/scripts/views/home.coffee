@@ -22,8 +22,7 @@ class musicPassport.Views.Home extends Backbone.View
 
       Evt.readAction { type: "_activation" }, (action) =>
         if action.length
-          # this thng has been activated
-          # get the owner
+          # this thng has been activated. get the owner
           @model.set
             "exists": true
             "own": (action[0].customFields.owner is musicPassport.user.get "id")

@@ -1,4 +1,22 @@
 <div id="welcome" class="panel">
-	<h2><%= @test %></h2>
+	<% for day, concerts of @lineup.attributes : %>
+		<h1>Day <%= day %></h1>
+		<h2>Main Stage</h2>
+		<% for concert in concerts.mainStage : %>
+			<p>
+				<span class="band"><%= concert.band %></span>
+				<span> (<%= concert.startTime %>)</span>
+				<a href="#" class="passport-add">Add to passport</a>
+			</p>
+		<% end %>
+		<h2>Secondary Stage</h2>
+		<% for concert in concerts.secondaryStage : %>
+			<p>
+				<span class="band"><%= concert.band %></span>
+				<span> (<%= concert.startTime %>) %></span>
+				<a href="#" class="passport-add">Add to passport</a>
+			</p>
+		<% end %>
+	<% end %>
+	<br/>
 </div>
-

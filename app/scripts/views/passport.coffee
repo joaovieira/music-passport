@@ -8,9 +8,16 @@ class musicPassport.Views.Passport extends Backbone.View
   template: JST['app/scripts/templates/passport']
 
   initialize: ->
+    @model.on "update", @render, this
     @render()
 
 
   render: ->
-    @$el.html @template()
+    concerts = []
+    for band in @model.wishlist.models
+      concert = { seen: band.seen() }
+      concert = _.extend concert, musicPassport.lineup.getConcert band.get('key')
+      concerts.push concert
+
+    @$el.html @template { concerts: concerts }
     @
