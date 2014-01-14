@@ -1,10 +1,10 @@
-<% if not @exists :%>
+<% if not @passport.exists :%>
 	<div class="panel">
 		<h2>Oops! This bracelet doesn't exist</h2>
 		<p>Please scan a valid bracelet and claim it to start using your passport</p>
 	</div>
-<% else if not @own :%>
-	<% if @new :%>
+<% else if not @passport.own :%>
+	<% if @passport.new :%>
 		<div class="panel">
 			<h2>Congratulations! You've got a new fancy accessory</h2>
 			<p>This bracelet is not registered. Claim it and start using your passport</p>
@@ -21,11 +21,15 @@
 <% else :%>
 	<div id="viewing" class="panel">
 		<p>You're currently watching</p>
+		<p><%= @closerStage.checkinCount %></p>
 		<a href="#" class="checkin">Check in concert!</a>
 	</div>
 	<div id="playing" class="panel">
 		<p>Also playing</p>
-		<p>Your next show in 2 hours</p>
+		<p><%= @otherStages.checkinCount %></p>
+		<div class="next-concert">
+			<p>Your next show: <span id="band"></span></p>
+		</div>
 		<a href="#" class="passport-full">Check my concerts</a>
 	</div>
 <% end %>

@@ -27,8 +27,15 @@ class musicPassport.Models.Passport extends Backbone.Model
   isNew: ->
   	@get 'new'
 
+  isValid: ->
+    @get('exists') and @get('own') and not @get('new')
+
 
   getWishList: ->
-    if @get('exists') and @get('own') and not @get('new')
+    if @isValid()
       Evt.readProperty { thng: @get('thngid') }, (properties) =>
         @wishlist.reset properties
+
+
+  getNextConcert: ->
+    @wishlist.first()
