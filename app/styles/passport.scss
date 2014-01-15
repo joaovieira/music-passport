@@ -33,6 +33,10 @@ h2, .bold {
 		border: 0px;
 	}
 	color: #777777;
+
+	.name{
+		display: none;
+	}
 }
 
 .avatar{
@@ -45,16 +49,6 @@ h2, .bold {
 
 .navbar-right .avatar{
 	display: none;
-
-	.name{
-		display: none;
-	}
-}
-
-@media (min-width: "330px") {
-	.navbar-right .avatar .name{
-		display: block;
-	}
 }
 /** end of nav styling **/
 
@@ -104,13 +98,6 @@ h2, .bold {
 
 	h2{ font-size: 30px; }
 	p{ font-size: 17px; }
-}
-
-@media (min-width: $screen-md-min) {
-  #welcome {
-  	.festival-logo { max-height: 200px; }
-  	p { font-size: inherit; }
-  }
 }
 
 /** end of welcome page **/
@@ -217,4 +204,24 @@ h2, .bold {
 
 .fa-bookmark{
 	padding-left: 5px;
+}
+
+
+@media (min-width: $screen-sm-min) {
+	.navbar-right .avatar{
+		display: inherit;
+		color: #777777;
+		line-height: 50px;
+	}
+
+	#welcome {
+  	.festival-logo { max-height: 200px; }
+  	p { font-size: inherit; }
+  }
+}
+
+@media (min-width: "330px") {
+	.navbar-toggle#menu .name{
+		display: inline;
+	}
 }

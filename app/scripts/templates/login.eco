@@ -2,7 +2,7 @@
 
 	<% if not not @id : %>
 		<button type="button" id="menu" class="navbar-toggle avatar" data-toggle="collapse" data-target="#navbar-collapse-1">
-    	<%= @name %>
+    	<span class="name"><%= @name %></span>
     	<img src="https://graph.facebook.com/<%= @id %>/picture?width=32&height=32" width="28" height="28"/>
     	<span class="caret"></span>
 		</button>
@@ -24,7 +24,7 @@
 	<ul id="login" class="nav navbar-nav navbar-right">
 		<% if not not @id : %>
   		<li class="avatar">
-    		<span class="name"><%= @name %></span>
+    		<%= @name %>
     		<img src="https://graph.facebook.com/<%= @id %>/picture?width=32&height=32" width="28" height="28"/>
   		</li>
   		<li><a href="#" class="logout">Logout</a></li>
