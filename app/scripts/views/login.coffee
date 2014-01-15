@@ -19,7 +19,6 @@ class musicPassport.Views.Login extends Backbone.View
 
   render: ->
     @$el.html @template @model.toJSON()
-    @$('.avatar .name').hide() if @$el.height() > 60
     @
 
  

@@ -45,13 +45,15 @@ h2, .bold {
 
 .navbar-right .avatar{
 	display: none;
+
+	.name{
+		display: none;
+	}
 }
 
-@media (min-width: $screen-md-min) {
-	.navbar-right .avatar{
-		display: inherit;
-		color: #777777;
-		line-height: 50px;
+@media (min-width: "330px") {
+	.navbar-right .avatar .name{
+		display: block;
 	}
 }
 /** end of nav styling **/
