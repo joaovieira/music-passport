@@ -37,18 +37,18 @@ $(document).on 'fbStatusChange', (event, data) ->
   if data.status is 'connected'
     FB.api '/me', (response) ->
       # Test
-      data =
+      ###data =
         "email": "joaoguerravieira@gmail.com"
-        "password": "Click12345"
+        "password": "Click12345"###
       
       # Deploy
-      ###data =
+      data =
         "access": 
-          "token": data.authResponse.accessToken###
+          "token": data.authResponse.accessToken
 
       Evt.request
-        url: '/auth/evrythng'
-        #url: "/auth/facebook"
+        #url: '/auth/evrythng'
+        url: "/auth/facebook"
         data: data
         method: 'post'
       , (access) ->
