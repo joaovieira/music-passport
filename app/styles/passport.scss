@@ -72,7 +72,7 @@ h2, .bold {
 
 		.panel-wrapper{
 			min-height: 100%;
-			padding: 10px 40px 0px;			
+			padding: 10px 25px 0px;			
 		}
 	}
 }
@@ -154,8 +154,9 @@ h2, .bold {
 		content: url("../images/sziget.png");
 		@include rotate(-15deg);
 		position: absolute;
-		right: 105px;
+		right: 20%;
 		width: 60px;
+		z-index: -1;
 
 		&.unseen{
 			display: none;
