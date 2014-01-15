@@ -31,8 +31,6 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
   home: ->
     if musicPassport.user.isAuthenticated()
-      @owl.removeItem() for i in [0..1]
-
       passportView = new musicPassport.Views.Home 
         model: musicPassport.passport
         owl: @owl
@@ -50,6 +48,9 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
 
 
   lineup: ->
-    @owl.removeItem() for i in [0..1]
-    lineupView = new musicPassport.Views.Lineup model: musicPassport.lineup
-    @owl.addItem lineupView.el
+    if musicPassport.user.isAuthenticated()
+      @owl.removeItem() for i in [0..1]
+      lineupView = new musicPassport.Views.Lineup model: musicPassport.lineup
+      @owl.addItem lineupView.el
+    else
+      @navigate "", { trigger: true }

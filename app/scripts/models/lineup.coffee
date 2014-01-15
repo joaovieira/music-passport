@@ -4,7 +4,7 @@ class musicPassport.Models.Lineup extends Backbone.Model
 
   defaults: 
     "1":
-      "date": "2014-01-15"
+      "date": 1389744000000 #15/01/2014
       "mainStage": [
       	"band": "Green Day"
       	"startTime": 1389822900000 #21:55
@@ -26,7 +26,7 @@ class musicPassport.Models.Lineup extends Backbone.Model
       	"finishTime": 1389813000000 # 19:10
       	"star-level": 3
       ]
-      "secondaryStage": [
+      "secondStage": [
       	"band": "Edward Sharpe & The Magnetic Zeros"
       	"startTime": 1389825000000 # 22:30
       	"finishTime": 1389830400000 # 00:00
@@ -43,7 +43,7 @@ class musicPassport.Models.Lineup extends Backbone.Model
       	"star-level": 3
       ]
     "2": 
-      "date": "2014-01-16"
+      "date": 1389830400000 #16/01/2014
       "mainStage": [
       	"band": "Kings of Leon"
       	"startTime": 1389913200000 # 23:00
@@ -65,7 +65,7 @@ class musicPassport.Models.Lineup extends Backbone.Model
       	"finishTime": 1389903000000 #20:10
       	"star-level": 3
       ]
-      "secondaryStage": [
+      "secondStage": [
       	"band": "Crystal Castles"
       	"startTime": 1389917100000 # 00:05
       	"finishTime": 1389922200000 # 01:30
@@ -85,8 +85,10 @@ class musicPassport.Models.Lineup extends Backbone.Model
 
   getConcert: (band) ->
   	for day, concerts of @attributes
-  		for concert in concerts.mainStage.concat concerts.secondaryStage		
-  			return concert if concert.band.toLowerCase() is band
+  		for concert in concerts.mainStage.concat concerts.secondStage		
+  			if concert.band.toLowerCase() is band
+          return _.extend concert, {day: day}
+
 
   getTime: (miliseconds) ->
     date = new Date miliseconds

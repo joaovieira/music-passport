@@ -11,13 +11,17 @@ class musicPassport.Views.Home extends Backbone.View
     'click .btn-claim': 'activate'
     'click .checkin': 'checkin'
     'click .passport-details': "viewPassportDetails"
+    'click .btn.lineup': "viewLineup"
 
 
   initialize: (options) ->
     @owl = options.owl
     thngid = options.model.get 'thngid'
 
-    @model.on "update", @refresh, this
+    @model.on "update", @updateNextShow, this
+    @model.on "checkin", @render, this
+
+    @getStageInfo()
 
     # read the passport
     Evt.readThng { thng: thngid }, (thng) =>
@@ -38,32 +42,36 @@ class musicPassport.Views.Home extends Backbone.View
         @model.set 'exists', false
         @render()
 
-    @getStageInfo()
-
 
   render: ->
+    @owl.removeItem() for i in [0..1]
     @$el.html @template 
       passport: @model.toJSON()
       closerStage: @closerStage
       otherStages: _.filter @otherStages, (stage) -> not not stage.properties?.playing
+      timeMissing: @timeMissing
 
     @owl.addItem @el
 
     if @model.isValid()
-    	@owl.addItem new musicPassport.Views.Passport({model: @model}).el
+      @updateNextShow()
+      @owl.addItem new musicPassport.Views.Passport({model: @model}).el
 
     @
 
 
-  refresh: ->
-    if concert = @model.getNextConcert() 
-      detailsConcert = musicPassport.lineup.getConcert concert.get "key"
-      date = new Date(detailsConcert.startTime)
-      time = musicPassport.lineup.getTime date
-      @$(".next-concert #band").text "#{detailsConcert.band} (#{time})"
-      @$(".next-concert").show()
+  updateNextShow: ->
+    if concert = @model.getNextConcert()
+      @$("#next-concert .empty-band").hide()
+      @$("#next-concert .band").text(concert.band).show()
     else
-      @$(".next-concert").hide()
+      @$("#next-concert .band").hide()
+      @$("#next-concert .empty-band").show()
+
+
+  timeMissing: (a, b) ->
+    difference = (a-b)/(1000*60)
+    if difference > 0 then "#{difference}m" else "0m"
 
 
   activate: (e) ->
@@ -99,14 +107,19 @@ class musicPassport.Views.Home extends Backbone.View
       method: 'post'
 
     Evt.request query, (result) =>
+      @closerStage.checkinCount++
       @model.checkinConcert currentTime, result.customFields.concert
-      @render()
 
 
   viewPassportDetails: (e) ->
-  	e.preventDefault()
-  	@owl.next()
-  	$("body").animate scrollTop: 0
+    e.preventDefault()
+    @owl.next()
+    $("body").animate scrollTop: 0
+
+
+  viewLineup: (e) ->
+    e.preventDefault()
+    musicPassport.router.navigate "lineup", { trigger: true }
 
 
   getStageInfo: ->
@@ -124,9 +137,10 @@ class musicPassport.Views.Home extends Backbone.View
         "tags": "stage"
 
       Evt.request { url: "/search", params: queryCloser }, (result) =>
-        @closerStage = result.thngs[0]
-        # get check ins in this stage
-        @closerStage.checkinCount = 0
+        if result.thngs.length
+          @closerStage = result.thngs[0]
+          @closerStage.checkinCount = 0 # get checkins in this concert
+          @getCheckinsConcert @closerStage
 
       , (error) ->
         # not close to any stage
@@ -140,7 +154,16 @@ class musicPassport.Views.Home extends Backbone.View
         @otherStages = []
         for stage in others
           stage.checkinCount = 0
+          @getCheckinsConcert stage
           @otherStages.push stage
 
       , (error) ->
         # not close to any stage
+
+
+  getCheckinsConcert: (stage) ->
+    Evt.request { url: "/actions/checkins" }, (result) =>
+      checkinsConcert = _.filter result, (checkin) -> 
+        checkin.customFields?.concert is stage.properties.playing
+
+      stage.checkinCount = checkinsConcert.length

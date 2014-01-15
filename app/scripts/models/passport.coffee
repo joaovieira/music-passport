@@ -32,11 +32,24 @@ class musicPassport.Models.Passport extends Backbone.Model
         @wishlist.reset properties
 
 
+  getAllConcerts: ->
+    concerts = []
+    for band in @wishlist.models
+      concert = { seen: band.seen() }
+      concert = _.extend concert, musicPassport.lineup.getConcert band.get('key')
+      concerts.push concert
+
+    _.sortBy concerts, (concert) -> concert.startTime
+
+
   getNextConcert: ->
-    @wishlist.first()
+    currentTime = Date.now()
+    _.find @getAllConcerts(), (concert) ->
+      concert.finishTime > currentTime and not concert.seen
 
 
   checkinConcert: (timestamp, concert) ->
+    # update bracelet thng
     options=
       thng: @get('thngid')
       data: [
@@ -47,4 +60,8 @@ class musicPassport.Models.Passport extends Backbone.Model
 
     Evt.updateProperty  options, (result) =>
         band = @wishlist.findWhere { key: result[0].key }
-        band.set 'value', result[0].value
+        if band
+          band.set 'value', result[0].value
+        else
+          @wishlist.add new musicPassport.Models.Concert result[0]
+        @trigger "checkin"

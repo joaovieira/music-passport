@@ -17,12 +17,19 @@ class musicPassport.Views.Lineup extends Backbone.View
 
   render: ->
     # todo: check user authenticated and valid passport
-    @$el.html @template { lineup: @model, getTime: @model.getTime }
+    if musicPassport.passport.isValid()
+      passport = musicPassport.passport.getAllConcerts()
+
+    @$el.html @template 
+      lineup: @model
+      getTime: @model.getTime
+      passport: passport
     @
 
 
   addToPassport: (e) ->
     e.preventDefault()
+    $(e.currentTarget).hide()
 
     options =
       thng: musicPassport.passport.get 'thngid'

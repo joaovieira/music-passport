@@ -13,13 +13,16 @@ class musicPassport.Views.Passport extends Backbone.View
 
 
   render: ->
-    concerts = []
-    for band in @model.wishlist.models
-      concert = { seen: band.seen() }
-      concert = _.extend concert, musicPassport.lineup.getConcert band.get('key')
-      concerts.push concert
-
-    _.sortBy concerts, (concert) -> concert.startTime
-
-    @$el.html @template { concerts: concerts, getTime: musicPassport.lineup.getTime }
+    @$el.html @template 
+      concerts: @model.getAllConcerts()
+      getTime: musicPassport.lineup.getTime
+      getDay: musicPassport.lineup.getDay
+      timeMissing: @timeMissing
     @
+
+
+  timeMissing: (a, b) ->
+    difference = (a-b)/(1000*60*60)
+    if difference < 0
+      "Starts in #{Math.abs Math.round difference} hours"
+    else "Past"
