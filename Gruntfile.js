@@ -269,6 +269,14 @@ module.exports = function (grunt) {
                     ]
                 }]
             },
+            fonts:{
+                expand: true,
+                dot: true,
+                flatten: true,
+                cwd: '<%= yeoman.app %>',
+                dest: '<%= yeoman.dist %>/fonts',
+                src: ['bower_components/font-awesome/fonts/*.*']
+            },
             styles: {
                 expand: true,
                 cwd: '<%= yeoman.app %>',
@@ -276,7 +284,8 @@ module.exports = function (grunt) {
                 src: [
                     'styles/{,*/}*.css',
                     'bower_components/owlcarousel/owl-carousel/owl.carousel.css',
-                    'bower_components/owlcarousel/owl-carousel/owl.theme.css'
+                    'bower_components/owlcarousel/owl-carousel/owl.theme.css',
+                    'bower_components/font-awesome/css/font-awesome.css'
                 ]
             }
         },
@@ -307,7 +316,8 @@ module.exports = function (grunt) {
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
                         '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         '/styles/fonts/{,*/}*.*',
-                        'bower_components/sass-bootstrap/fonts/*.*'
+                        'bower_components/sass-bootstrap/fonts/*.*',
+                        'bower_components/font-awesome/fonts/*.*'
                     ]
                 }
             }
