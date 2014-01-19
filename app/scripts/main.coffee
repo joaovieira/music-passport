@@ -42,7 +42,7 @@ $(document).on 'fbStatusChange', (event, data) ->
           "token": data.authResponse.accessToken
 
       Evt.request
-        url: '/auth/evrythng'
+        url: '/auth/facebook'
         data: data
         method: 'post'
       , (access) ->
