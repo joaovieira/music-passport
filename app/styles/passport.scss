@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-	background: url("../images/festival.jpg") no-repeat center fixed;
+	background: url("../images/festival2.jpg") no-repeat center fixed;
 	@include background-size(cover);
 }
 
@@ -57,20 +57,21 @@ h2, .bold {
 
 .panel-holder{
 	background:	transparent;
-	padding: 80px 0px 0px;
-	min-height: 100%;
+	padding: 50px 0px 0px;
 	border: 0px;
 	margin-bottom: 0px;
 	font-family: 'Proxima Nova Light', 'Helvetica Neue';
 
 	#panel-carousel{
-		height: inherit;
-
 		.panel-wrapper{
-			min-height: 100%;
-			padding: 10px 25px 0px;			
+			padding: 40px 25px 0px;	
+			overflow: auto;		
 		}
 	}
+}
+
+.panel-holder, #panel-carousel, .panel-wrapper{
+	height: inherit;
 }
 
 .panel{
@@ -112,6 +113,7 @@ h2, .bold {
 	line-height: 1.2;
 	border-bottom: 1px solid rgba(0,0,0,0.3);
 	padding: 20px 0px;
+	position: relative;
 
 	&.last{
 		border-bottom: none;
@@ -143,7 +145,7 @@ h2, .bold {
 		content: url("../images/sziget.png");
 		@include rotate(-15deg);
 		position: absolute;
-		right: 20%;
+		right: 15%;
 		width: 60px;
 		z-index: -1;
 
@@ -157,12 +159,13 @@ h2, .bold {
 
 /** Home screen **/
 .btn.wide {
-	width: 80%;
+	width: 90%;
 }
 
 .panel{
 	.panel-desc{
 		font-size: 18px;
+		color: #428bca;
 	}
 }
 
@@ -182,10 +185,12 @@ h2, .bold {
 		font-size: 18px;
 		border-bottom: 1px solid rgba(0,0,0,0.3);
 		padding-bottom: 10px;
+		margin-bottom: 15px;
 
 		&.last{
 			border-bottom: none;
 			padding-bottom: 0px;
+			margin-bottom: 0px;
 		}
 
 		.left { float:left}
@@ -198,6 +203,7 @@ h2, .bold {
 
 	.band-name{
 		font-size: 24px;
+		line-height: 1.4;
 	}
 }
 /** end of home Screen **/
@@ -218,6 +224,10 @@ h2, .bold {
   	.festival-logo { max-height: 200px; }
   	p { font-size: inherit; }
   }
+
+  .btn.wide {
+		width: auto;
+	}
 }
 
 @media (min-width: "330px") {

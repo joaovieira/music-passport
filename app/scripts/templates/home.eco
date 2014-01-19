@@ -9,7 +9,7 @@
 			<h2>Congratulations! You've got a new fancy accessory</h2>
 			<p>This bracelet is not registered. Claim it and start using your passport</p>
 			<p>
-				<a href="#" class="btn btn-primary btn-large btn-claim">Claim my bracelet</a>
+				<a href="#" class="btn btn-primary btn-large btn-claim wide">Claim my bracelet</a>
 			</p>
 		</div>
 	<% else :%>
@@ -63,7 +63,7 @@
 		<h2 class="panel-desc">Your next show:</h2>
 		<h2 class="band"></h2>
 		<p class="empty-band">None</p>
-		<a href="#" class="passport-details bold">View my concerts</a>
+		<a href="#" class="btn btn-primary btn-large wide passport-details">View my concerts</a>
 	</div>
 <% end %>
 <div id="lineup" class="panel">

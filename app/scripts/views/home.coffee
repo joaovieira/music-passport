@@ -16,7 +16,8 @@ class musicPassport.Views.Home extends Backbone.View
 
   initialize: (options) ->
     @owl = options.owl
-    thngid = options.model.get 'thngid'
+    thngid = options.model.get "thngid"
+    passportAttrs = {}
 
     @model.on "update", @updateNextShow, this
     @model.on "checkin", @render, this
@@ -25,21 +26,23 @@ class musicPassport.Views.Home extends Backbone.View
 
     # read the passport
     Evt.readThng { thng: thngid }, (thng) =>
-      if thng.tags.indexOf "bracelet" isnt -1 # check if is a bracelet
-        Evt.readAction { type: "_activation" }, (action) =>
-          if action.length
-            # this thng has been activated. set properties
-            @model.set
-              "exists": true
-              "own": (action[0].customFields.owner is musicPassport.user.get "id")
-              "new": (action[0].thng isnt thngid)
-          else
-            @model.set 'exists', true
+      Evt.readAction { type: "_activation" }, (actions) =>
+        # check if is a bracelet
+        if thng.tags.indexOf("bracelet") isnt -1
+          passportAttrs.exists = true
 
-          @render()
+          # check if it has been activated or the current user already activated one
+          if thng.customFields? or actions.length
+            passportAttrs.new = false
+
+            if thng.customFields?.owner is musicPassport.user.get "id"
+              # this thng has been activated by the current user
+              passportAttrs.own = true
+
+        @model.set passportAttrs
+        @render()
     , (error) =>
       if error.status is 400
-        @model.set 'exists', false
         @render()
 
 
@@ -77,19 +80,25 @@ class musicPassport.Views.Home extends Backbone.View
   activate: (e) ->
     e.preventDefault()
 
+    # add activation action
     query =
       url: '/actions/_activation'
       data:
-        timestamp: new Date().getTime()
         type: '_activation'
-        customFields:
-          "owner": musicPassport.user.get "id"
         thng: @model.get "thngid"
       method: 'post'
     
     Evt.request query, (response) =>
       @model.set { "own": true, "new": false }
       @render()
+
+    # set owner of bracelet
+    options =
+      data:
+        customFields:
+          "owner": musicPassport.user.get "id"
+      thng: @model.get "thngid"
+    Evt.updateThng options
 
 
   checkin: (e) ->
@@ -132,10 +141,6 @@ class musicPassport.Views.Home extends Backbone.View
         "lon": position.longitude
         "maxDist": 0.1
 
-      queryAll =
-        "types": "thng"
-        "tags": "stage"
-
       Evt.request { url: "/search", params: queryCloser }, (result) =>
         if result.thngs.length
           @closerStage = result.thngs[0]
@@ -145,20 +150,24 @@ class musicPassport.Views.Home extends Backbone.View
       , (error) ->
         # not close to any stage
 
-      Evt.request { url: "/search", params: queryAll }, (result) =>
-        others = result.thngs
-        if @closerStage
-          # filter thngs to remove closer stage
-          others = _.filter result.thngs, (stage) => stage.id isnt @closerStage.id
+    queryAll =
+      "types": "thng"
+      "tags": "stage"
 
-        @otherStages = []
-        for stage in others
-          stage.checkinCount = 0
-          @getCheckinsConcert stage
-          @otherStages.push stage
+    Evt.request { url: "/search", params: queryAll }, (result) =>
+      others = result.thngs
+      if @closerStage
+        # filter thngs to remove closer stage
+        others = _.filter result.thngs, (stage) => stage.id isnt @closerStage.id
 
-      , (error) ->
-        # not close to any stage
+      @otherStages = []
+      for stage in others
+        stage.checkinCount = 0
+        @getCheckinsConcert stage
+        @otherStages.push stage
+
+    , (error) ->
+      # not close to any stage
 
 
   getCheckinsConcert: (stage) ->
