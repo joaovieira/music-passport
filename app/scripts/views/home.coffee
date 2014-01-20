@@ -20,30 +20,32 @@ class musicPassport.Views.Home extends Backbone.View
     passportAttrs = {}
 
     @model.on "update", @updateNextShow, this
-    @model.on "checkin", @render, this
 
-    @getStageInfo()
+    # sync async tasks, render only after stage info is resolved
+    closerStagePromise = new RSVP.Promise (resolve, reject) => 
+      @getStageInfo resolve, reject
 
-    # read the passport
-    Evt.readThng { thng: thngid }, (thng) =>
-      Evt.readAction { type: "_activation" }, (actions) =>
-        # check if is a bracelet
-        if thng.tags.indexOf("bracelet") isnt -1
-          passportAttrs.exists = true
+    closerStagePromise.then =>
+      # read the passport
+      Evt.readThng { thng: thngid }, (thng) =>
+        Evt.readAction { type: "_activation" }, (actions) =>
+          # check if is a bracelet
+          if thng.tags.indexOf("bracelet") isnt -1
+            passportAttrs.exists = true
 
-          # check if it has been activated or the current user already activated one
-          if thng.customFields? or actions.length
-            passportAttrs.new = false
+            # check if it has been activated or the current user already activated one
+            if thng.customFields? or actions.length
+              passportAttrs.new = false
 
-            if thng.customFields?.owner is musicPassport.user.get "id"
-              # this thng has been activated by the current user
-              passportAttrs.own = true
+              if thng.customFields?.owner is musicPassport.user.get "id"
+                # this thng has been activated by the current user
+                passportAttrs.own = true
 
-        @model.set passportAttrs
-        @render()
-    , (error) =>
-      if error.status is 400
-        @render()
+          @model.set passportAttrs
+          @render()
+      , (error) =>
+        if error.status is 400
+          @render()
 
 
   render: ->
@@ -61,6 +63,12 @@ class musicPassport.Views.Home extends Backbone.View
       @owl.addItem new musicPassport.Views.Passport({model: @model}).el
 
     @
+
+
+  updateCurrentShow: ->
+    watching = @$("#watching")
+    @$(".checkin-count", watching).html @closerStage.checkinCount++
+    #@$(".checkin").hide()
 
 
   updateNextShow: ->
@@ -116,7 +124,7 @@ class musicPassport.Views.Home extends Backbone.View
       method: 'post'
 
     Evt.request query, (result) =>
-      @closerStage.checkinCount++
+      @updateCurrentShow()
       @model.checkinConcert currentTime, result.customFields.concert
 
 
@@ -131,24 +139,25 @@ class musicPassport.Views.Home extends Backbone.View
     musicPassport.router.navigate "lineup", { trigger: true }
 
 
-  getStageInfo: ->
+  getStageInfo: (resolve, reject) ->
     position = musicPassport.appView.position
-    if typeof position isnt "string"
-      queryCloser =
-        "types": "thng"
-        "tags": "stage"
-        "lat": position.latitude
-        "lon": position.longitude
-        "maxDist": 0.1
 
-      Evt.request { url: "/search", params: queryCloser }, (result) =>
-        if result.thngs.length
-          @closerStage = result.thngs[0]
-          @closerStage.checkinCount = 0 # get checkins in this concert
-          @getCheckinsConcert @closerStage
+    queryCloser =
+      "types": "thng"
+      "tags": "stage"
+      "lat": position.latitude
+      "lon": position.longitude
+      "maxDist": 0.1
 
-      , (error) ->
-        # not close to any stage
+    Evt.request { url: "/search", params: queryCloser }, (result) =>
+      if result.thngsResultCount
+        @closerStage = result.thngs[0]
+        @closerStage.checkinCount = 0 # get checkins in this concert
+        @getCheckinsConcert @closerStage
+
+    , (error) ->
+      # not close to any stage
+
 
     queryAll =
       "types": "thng"
@@ -165,6 +174,9 @@ class musicPassport.Views.Home extends Backbone.View
         stage.checkinCount = 0
         @getCheckinsConcert stage
         @otherStages.push stage
+
+      # resolve async task
+      resolve()
 
     , (error) ->
       # not close to any stage

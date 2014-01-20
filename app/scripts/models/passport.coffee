@@ -64,4 +64,3 @@ class musicPassport.Models.Passport extends Backbone.Model
           band.set 'value', result[0].value
         else
           @wishlist.add new musicPassport.Models.Concert result[0]
-        @trigger "checkin"
