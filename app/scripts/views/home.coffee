@@ -19,6 +19,9 @@ class musicPassport.Views.Home extends Backbone.View
 
     @model.on "update", @updateNextShow, this
 
+    @render()
+
+    # refresh content
     @getCurrentPosition().then (location) =>
       @getStageInfo(location)
     .then =>
@@ -29,8 +32,8 @@ class musicPassport.Views.Home extends Backbone.View
     @owl.removeItem() for i in [0..1]
     @$el.html @template 
       passport: @model.toJSON()
-      closerStage: @closerStage
-      otherStages: _.filter @otherStages, (stage) -> not not stage.properties?.playing
+      closerStage: @model.closerStage
+      otherStages: _.filter @model.otherStages, (stage) -> not not stage.properties?.playing
       timeMissing: @timeMissing
 
     @owl.addItem @el
@@ -43,7 +46,7 @@ class musicPassport.Views.Home extends Backbone.View
 
 
   updateCurrentShow: ->
-    @$("#watching .checkin-count").html ++@closerStage.checkinCount
+    @$("#watching .checkin-count").html ++@model.closerStage.checkinCount
     #@$(".checkin").hide()
 
 
@@ -91,7 +94,7 @@ class musicPassport.Views.Home extends Backbone.View
     e.preventDefault()
 
     currentTime = new Date().getTime()
-    concert = @closerStage.properties.playing
+    concert = @model.closerStage.properties.playing
     query = 
       url: '/actions/checkins'
       data:
@@ -123,18 +126,19 @@ class musicPassport.Views.Home extends Backbone.View
 
   getStageInfo: (location) ->
     promise = new RSVP.Promise (resolve, reject) =>
-      queryCloser =
-        "types": "thng"
-        "tags": "stage"
-        "lat": location.latitude
-        "lon": location.longitude
-        "maxDist": 0.2
+      if typeof location isnt String
+        queryCloser =
+          "types": "thng"
+          "tags": "stage"
+          "lat": location.latitude
+          "lon": location.longitude
+          "maxDist": 0.2
 
-      Evt.request { url: "/search", params: queryCloser }, (result) =>
-        if result.thngsResultCount
-          @closerStage = result.thngs[0]
-          @closerStage.checkinCount = 0 # get checkins in this concert
-          @getCheckinsConcert @closerStage
+        Evt.request { url: "/search", params: queryCloser }, (result) =>
+          if result.thngsResultCount
+            @model.closerStage = result.thngs[0]
+            @model.closerStage.checkinCount = 0 # get checkins in this concert
+            @getCheckinsConcert @model.closerStage
 
 
       queryAll =
@@ -143,26 +147,25 @@ class musicPassport.Views.Home extends Backbone.View
 
       Evt.request { url: "/search", params: queryAll }, (result) =>
         others = result.thngs
-        if @closerStage
+        if @model.closerStage
           # filter thngs to remove closer stage
-          others = _.filter result.thngs, (stage) => stage.id isnt @closerStage.id
+          others = _.filter result.thngs, (stage) => stage.id isnt @model.closerStage.id
 
-        @otherStages = []
-        for stage in others
-          stage.checkinCount = 0
-          @getCheckinsConcert stage
-          @otherStages.push stage
+        @model.otherStages = (@getCheckinsConcert stage for stage in others)
 
         # resolve async task
         resolve()
 
 
   getCheckinsConcert: (stage) ->
+    stage.checkinCount = 0
     Evt.request { url: "/actions/checkins" }, (result) =>
       checkinsConcert = _.filter result, (checkin) -> 
         checkin.customFields?.concert is stage.properties.playing
 
       stage.checkinCount = checkinsConcert.length
+
+    stage
 
 
   shareFacebook: (concert) ->
@@ -182,17 +185,17 @@ class musicPassport.Views.Home extends Backbone.View
 
   getCurrentPosition: ->
     promise = new RSVP.Promise (resolve, reject) =>
-      @position = "Current position unavailable"
+      position = "Current position unavailable"
 
       if navigator.geolocation
         navigator.geolocation.getCurrentPosition (pos) =>
-          @position = pos.coords
-          resolve @position
+          position = pos.coords
+          resolve position
         , (error) -> 
-          resolve @position
+          resolve position
         , { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
       else
-        resolve @position
+        resolve position
 
     promise
 
@@ -215,8 +218,10 @@ class musicPassport.Views.Home extends Backbone.View
               # this thng has been activated by the current user
               passportAttrs.own = true
 
+        passportAttrs.verified = true
         @model.set passportAttrs
         @render()
     , (error) =>
       if error.status is 400
+        @model.set "verified", true
         @render()

@@ -1,4 +1,5 @@
 @import "base";
+@import "loading";
 
 html, body { 
 	padding: 0px; 
@@ -66,13 +67,16 @@ h2, .bold {
 
 	#panel-carousel{
 		.panel-wrapper{
-			padding: 40px 25px 0px;	
 			overflow: auto;		
+
+			.content-wrapper{
+				padding: 40px 25px 0px;
+			}
 		}
 	}
 }
 
-.panel-holder, #panel-carousel, .panel-wrapper{
+.panel-holder, #panel-carousel, .panel-wrapper, .content-wrapper{
 	height: inherit;
 }
 
@@ -161,7 +165,7 @@ h2, .bold {
 
 /** Home screen **/
 .btn.wide {
-	width: 90%;
+	width: 100%;
 }
 
 .panel{
@@ -235,6 +239,23 @@ h2, .bold {
 }
 
 /** End of notification **/
+
+
+/** Loading screen **/
+.loading{
+	display: table;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	color: white;
+
+	.content{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+}
+/** end of loading **/
 
 
 @media (min-width: $screen-sm-min) {

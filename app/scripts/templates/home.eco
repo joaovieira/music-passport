@@ -1,71 +1,89 @@
-<% if not @passport.exists :%>
-	<div class="panel">
-		<h2>Oops! This bracelet doesn't exist</h2>
-		<p>Please scan a valid bracelet and claim it to start using your passport</p>
-	</div>
-<% else if not @passport.own :%>
-	<% if @passport.new :%>
-		<div class="panel">
-			<h2>Congratulations! You've got a new fancy accessory</h2>
-			<p>This bracelet is not registered. Claim it and start using your passport</p>
-			<p>
-				<a href="#" class="btn btn-primary btn-large btn-claim wide">Claim my bracelet</a>
-			</p>
-		</div>
-	<% else :%>
-		<div class="panel">
-			<h2>Getting new friends?</h2>
-			<p>This isn't your bracelet. Please scan yours to use your passport</p>
-		</div>
-	<% end %>
-<% else :%>
-	<div id="watching" class="panel">
-		<h2 class="panel-desc">You're currently watching:</h2>
-		<% if @closerStage and not not @closerStage.properties?.playing : %>
-			<h2 class="band"><%= @closerStage.properties.playing %></h2>
-			<div class="description">
-				<span class="bold"><%= @timeMissing @closerStage.properties.finishTime, Date.now() %></span> missing to end
+<% if not @passport.verified :%>
+	<div class="loading">
+		<div class="content">
+			<p>Loading MIDIs</p>
+			<div id="circleG">
+				<div id="circleG_1" class="circleG">
+				</div>
+				<div id="circleG_2" class="circleG">
+				</div>
+				<div id="circleG_3" class="circleG">
+				</div>
 			</div>
-			<div class="description">
-				<span class="checkin-count bold"><%= @closerStage.checkinCount %></span> people checked-in at this concert
-			</div>
-			<a href="#" class="btn btn-primary btn-large wide checkin">Check-in & Share</a>
-		<% else : %>
-			<p>There are no concerts near you now</p>
-		<% end %>
+		</div>
 	</div>
-	<div id="playing" class="panel">
-		<h2 class="panel-desc">Also playing:</h2>
-		<% if @otherStages.length : %>
-			<% for stage,i in @otherStages : %>
-				<% if stage.properties?.playing : %>
-					<div class="band-name bold"><%= stage.properties.playing %></div>
-					<div class="concert clearfix <%= "last" if i is @otherStages.length-1 %>">
-						<div class="left">
-							<span><%= stage.name %></span>
-						</div>
-						<div class="right">
-							<span><i class="fa fa-clock-o"></i><%= @timeMissing stage.properties.finishTime, Date.now() %> </span>
-							<span><i class="fa fa-group"></i><%= stage.checkinCount %></span>
-						</div>
+<% else : %>
+	<div class="content-wrapper">
+		<% if not @passport.exists :%>
+			<div class="panel">
+				<h2>Oops! This bracelet doesn't exist</h2>
+				<p>Please scan a valid bracelet and claim it to start using your passport</p>
+			</div>
+		<% else if not @passport.own :%>
+			<% if @passport.new :%>
+				<div class="panel">
+					<h2>Congratulations! You've got a new fancy accessory</h2>
+					<p>This bracelet is not registered. Claim it and start using your passport</p>
+					<p>
+						<a href="#" class="btn btn-primary btn-large btn-claim wide">Claim my bracelet</a>
+					</p>
+				</div>
+			<% else :%>
+				<div class="panel">
+					<h2>Getting new friends?</h2>
+					<p>This isn't your bracelet. Please scan yours to use your passport</p>
+				</div>
+			<% end %>
+		<% else :%>
+			<div id="watching" class="panel">
+				<h2 class="panel-desc">You're currently watching:</h2>
+				<% if @closerStage and not not @closerStage.properties?.playing : %>
+					<h2 class="band"><%= @closerStage.properties.playing %></h2>
+					<div class="description">
+						<span class="bold"><%= @timeMissing @closerStage.properties.finishTime, Date.now() %></span> missing to end
 					</div>
+					<div class="description">
+						<span class="checkin-count bold"><%= @closerStage.checkinCount %></span> people checked-in at this concert
+					</div>
+					<a href="#" class="btn btn-primary btn-large wide checkin">Check-in & Share</a>
+				<% else : %>
+					<p>There are no concerts near you now</p>
 				<% end %>
-			<% end %>
-		<% else : %>
-			<% if @closerStage and not not @closerStage.properties?.playing : %>
-				<p>There are no other bands playing now</p>
-			<% else : %>
-				<p>There are no bands playing now</p>
-			<% end %>
+			</div>
+			<div id="playing" class="panel">
+				<h2 class="panel-desc">Also playing:</h2>
+				<% if @otherStages.length : %>
+					<% for stage,i in @otherStages : %>
+						<% if stage.properties?.playing : %>
+							<div class="band-name bold"><%= stage.properties.playing %></div>
+							<div class="concert clearfix <%= "last" if i is @otherStages.length-1 %>">
+								<div class="left">
+									<span><%= stage.name %></span>
+								</div>
+								<div class="right">
+									<span><i class="fa fa-clock-o"></i><%= @timeMissing stage.properties.finishTime, Date.now() %> </span>
+									<span><i class="fa fa-group"></i><%= stage.checkinCount %></span>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+				<% else : %>
+					<% if @closerStage and not not @closerStage.properties?.playing : %>
+						<p>There are no other bands playing now</p>
+					<% else : %>
+						<p>There are no bands playing now</p>
+					<% end %>
+				<% end %>
+			</div>
+			<div id="next-concert" class="panel">
+				<h2 class="panel-desc">Your next show:</h2>
+				<h2 class="band"></h2>
+				<p class="empty-band">None</p>
+				<a href="#" class="btn btn-primary btn-large wide passport-details">View my concerts</a>
+			</div>
 		<% end %>
-	</div>
-	<div id="next-concert" class="panel">
-		<h2 class="panel-desc">Your next show:</h2>
-		<h2 class="band"></h2>
-		<p class="empty-band">None</p>
-		<a href="#" class="btn btn-primary btn-large wide passport-details">View my concerts</a>
+		<div id="lineup" class="panel">
+			<a href="#" class="btn btn-primary btn-large wide lineup">View Lineup</a>
+		</div>
 	</div>
 <% end %>
-<div id="lineup" class="panel">
-	<a href="#" class="btn btn-primary btn-large wide lineup">View Lineup</a>
-</div>

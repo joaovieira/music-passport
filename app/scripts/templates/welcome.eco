@@ -1,10 +1,12 @@
-<div id="welcome" class="panel">
-	<div class="festival-logo">
+<div class="content-wrapper">
+	<div id="welcome" class="panel">
+		<div class="festival-logo">
+		</div>
+			<h1 class="navbar-brand">Music Passport</h1>
+		<h2>Your bracelet is your digital music passport</h2>
+		<p>Check in at concerts, collect rewards and share it with friends</p>
+		<p>
+			<a href="#" class="btn btn-primary btn-large btn-login wide">Login with Facebook</a>
+		</p>
 	</div>
-		<h1 class="navbar-brand">Music Passport</h1>
-	<h2>Your bracelet is your digital music passport</h2>
-	<p>Check in at concerts, collect rewards and share it with friends</p>
-	<p>
-		<a href="#" class="btn btn-primary btn-large btn-login wide">Login with Facebook</a>
-	</p>
 </div>
