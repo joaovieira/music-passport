@@ -8,17 +8,17 @@ class musicPassport.Views.App extends Backbone.View
 
   events:
     'click .btn-login': 'login'
+    'click button.close': 'dismiss'
 
 
   initialize: ->
     @on 'login', @login
     @on 'logout', @logout
-
-    # get current location
-    @getCurrentPosition()
+    @on 'notify', @notify
 
     # render base app view
     @render()
+    @
 
 
   render: ->
@@ -53,9 +53,10 @@ class musicPassport.Views.App extends Backbone.View
     FB.logout()
 
 
-  getCurrentPosition: ->
-    @position = "Current position unavailable"
+  notify: (message) =>
+    @$('#notification span').html(message).parent().slideDown()
 
-    if navigator.geolocation
-      navigator.geolocation.getCurrentPosition (position) =>
-        @position = position.coords
+
+  dismiss: (e) ->
+    e.stopPropagation()
+    $(e.currentTarget).parent().slideUp()

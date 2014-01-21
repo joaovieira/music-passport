@@ -3,6 +3,10 @@
 	<!-- navigation dependent of login -->
 </nav>
 
+<div id="notification" class="alert alert-info alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<span></span>
+</div>
 
 <!-- content -->
 <div class="jumbotron panel-holder">

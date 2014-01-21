@@ -31,12 +31,14 @@ class musicPassport.Views.Lineup extends Backbone.View
     e.preventDefault()
     $(e.currentTarget).hide()
 
+    concert = $(e.currentTarget).prevAll(".band").text()
     options =
       thng: musicPassport.passport.get 'thngid'
       data: [
-        key: $(e.currentTarget).prevAll(".band").text()
+        key: concert
         value: "-1"
       ]
 
     Evt.updateProperty options, (response) ->
       musicPassport.passport.getWishList()
+      musicPassport.appView.trigger 'notify', "You added <strong>#{concert}</strong> to your passport."

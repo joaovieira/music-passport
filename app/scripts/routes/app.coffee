@@ -29,18 +29,20 @@ class musicPassport.Routers.AppRouter extends Backbone.Router
     @owl.addItem @welcomeView.el
 
 
-  home: ->
+  home: (thngid) ->
+    musicPassport.passport.set 'thngid', thngid
+
     if musicPassport.user.isAuthenticated()
       passportView = new musicPassport.Views.Home 
         model: musicPassport.passport
         owl: @owl
     else
-      @navigate "", { trigger: true }
+      @navigate "#{thngid}", { trigger: true }
 
 
   start: (thngid) ->
     musicPassport.passport.set 'thngid', thngid
-
+    
     if musicPassport.user.isAuthenticated()
       @navigate "#{thngid}/home", { trigger: true }
     else
