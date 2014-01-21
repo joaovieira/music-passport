@@ -43,8 +43,7 @@ class musicPassport.Views.Home extends Backbone.View
 
 
   updateCurrentShow: ->
-    checkins = @closerStage.checkinCount++
-    @$("#watching .checkin-count").html checkins
+    @$("#watching .checkin-count").html ++@closerStage.checkinCount
     #@$(".checkin").hide()
 
 
@@ -168,11 +167,12 @@ class musicPassport.Views.Home extends Backbone.View
 
   shareFacebook: (concert) ->
     FB.ui
-      method:'feed'
-      name:"#{concert} @ Sziget Music Festival"
-      picture:'http://joaovieira.github.io/music-passport/images/77238394.fb.jpg'
-      caption:'Checked in with Music Passport'
-      description:'The Sziget Music Passport keeps your concert checklist at hand, along with live info from every stage.'
+      method:"feed"
+      name: "#{concert} @ Sziget Music Festival"
+      picture: "http://joaovieira.github.io/music-passport/images/77238394.fb.jpg"
+      caption: "Checked in with Music Passport"
+      description: "The Sziget Music Passport keeps your concert checklist at hand, 
+        along with live info from every stage and the full lineup to the rescue"
     , (response) =>
       if response and response.id
         musicPassport.appView.trigger 'notify', "<strong>Facebook:</strong> Post published with success."
