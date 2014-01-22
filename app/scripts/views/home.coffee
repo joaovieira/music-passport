@@ -42,6 +42,7 @@ class musicPassport.Views.Home extends Backbone.View
       @updateNextShow()
       @owl.addItem new musicPassport.Views.Passport({model: @model}).el
 
+    @delegateEvents()
     @
 
 
@@ -177,9 +178,7 @@ class musicPassport.Views.Home extends Backbone.View
       description: "The Sziget Music Passport keeps your concert checklist at hand, 
         along with live info from every stage and the full lineup to the rescue"
     , (response) =>
-      if response and response.id
-        musicPassport.appView.trigger 'notify', "<strong>Facebook:</strong> Post published with success."
-      else
+      if not response?.id?
         musicPassport.appView.trigger 'notify', "<strong>Facebook:</strong> Post not published."
 
 

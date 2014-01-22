@@ -7,7 +7,7 @@ html, body {
 }
 
 body {
-	background: url("../images/festival.jpg") no-repeat center fixed;
+	background: url("../images/festival2.jpg") no-repeat center fixed;
 	@include background-size(cover);
 }
 
@@ -67,10 +67,9 @@ h2, .bold {
 
 	#panel-carousel{
 		.panel-wrapper{
-			overflow: auto;		
-
 			.content-wrapper{
-				padding: 40px 25px 0px;
+				padding: 35px 20px 0px;
+				overflow: auto;		
 			}
 		}
 	}
@@ -81,7 +80,7 @@ h2, .bold {
 }
 
 .panel{
-	background-color: rgba(255,255,255,0.6);
+	background-color: rgba(255,255,255,0.5);
 	padding: 20px;
 }
 
@@ -104,7 +103,7 @@ h2, .bold {
 	}
 
 	h2{ font-size: 30px; }
-	p{ font-size: 17px; }
+	p{ font-size: 16px; }
 }
 
 /** end of welcome page **/
@@ -177,7 +176,7 @@ h2, .bold {
 
 #watching{
 	.description{
-		font-size: 18px;
+		font-size: 16px;
 		line-height: 1.5;
 	}
 
@@ -188,7 +187,7 @@ h2, .bold {
 
 #playing{
 	.concert{
-		font-size: 18px;
+		font-size: 16px;
 		border-bottom: 1px solid rgba(0,0,0,0.3);
 		padding-bottom: 10px;
 		margin-bottom: 15px;
@@ -209,7 +208,7 @@ h2, .bold {
 
 	.band-name{
 		font-size: 24px;
-		line-height: 1.4;
+		line-height: 1.8;
 	}
 }
 /** end of home Screen **/

@@ -1,27 +1,28 @@
-<h2 class="panel-name" id="passport-title">My Passport</h2>
-<div class="panel" id="passport" >
-	<% if @concerts : %>
-		<% if @concerts.length : %>
-			<% for concert, i in @concerts : %>
-				<div class="passport-item clearfix <%= "last" if i is @concerts.length-1 %>">
-					<div class="left">
-						<div class="band-name bold"><%= concert.band %></div>
-						<div class="concert-missing"><%= @timeMissing Date.now(), concert.startTime %></div>
+<div class="content-wrapper">
+	<h2 class="panel-name" id="passport-title">My Passport</h2>
+	<div class="panel" id="passport" >
+		<% if @concerts : %>
+			<% if @concerts.length : %>
+				<% for concert, i in @concerts : %>
+					<div class="passport-item clearfix <%= "last" if i is @concerts.length-1 %>">
+						<div class="left">
+							<div class="band-name bold"><%= concert.band %></div>
+							<div class="concert-missing"><%= @timeMissing Date.now(), concert.startTime %></div>
+						</div>
+						<div class="right">
+							<div class="concert-time bold"><%= @getTime concert.startTime %></div>
+							<div class="concert-day">Day <%= concert.day %></div>
+						</div>
+						<div class="concert-status <%= if concert.seen then 'seen' else 'unseen' %>"/>
 					</div>
-					<div class="right">
-						<div class="concert-time bold"><%= @getTime concert.startTime %></div>
-						<div class="concert-day">Day <%= concert.day %></div>
-					</div>
-					<div class="concert-status <%= if concert.seen then 'seen' else 'unseen' %>"/>
-				</div>
+				<% end %>
+			<% else : %>
+				<!-- wish list empty -->
+				<p class="empty">You don't have any concert in your passport. Add them to your want-to-see list from the <a href="#lineup">Lineup</a></p>
 			<% end %>
 		<% else : %>
-			<!-- wish list empty -->
-			<p class="empty">You don't have any concert in your passport. Add them to your want-to-see list from the <a href="#lineup">Lineup</a></p>
+			<!-- loading -->
+			<p class="loading">Loading</p>
 		<% end %>
-	<% else : %>
-		<!-- loading -->
-		<p class="loading">Loading</p>
-	<% end %>
+	</div>
 </div>
-
