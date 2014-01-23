@@ -18,6 +18,8 @@ class musicPassport.Views.Passport extends Backbone.View
       getTime: musicPassport.lineup.getTime
       getDay: musicPassport.lineup.getDay
       timeMissing: @timeMissing
+      
+    @$('.passport-item').popover()
     @
 
 

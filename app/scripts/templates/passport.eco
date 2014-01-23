@@ -4,16 +4,18 @@
 		<% if @concerts : %>
 			<% if @concerts.length : %>
 				<% for concert, i in @concerts : %>
-					<div class="passport-item clearfix <%= "last" if i is @concerts.length-1 %>">
-						<div class="left">
-							<div class="band-name bold"><%= concert.band %></div>
-							<div class="concert-missing"><%= @timeMissing Date.now(), concert.startTime %></div>
+					<div class="content <%= "last" if i is @concerts.length-1 %>">
+						<div class="passport-item clearfix" data-toggle="popover" data-placement="bottom" data-content="Remove" data-original-title="" title="">
+							<div class="left">
+								<div class="band-name bold"><%= concert.band %></div>
+								<div class="concert-missing"><%= @timeMissing Date.now(), concert.startTime %></div>
+							</div>
+							<div class="right">
+								<div class="concert-time"><%= @getTime concert.startTime %></div>
+								<div class="concert-day">Day <%= concert.day %></div>
+							</div>
+							<div class="concert-status <%= if concert.seen then 'seen' else 'unseen' %>"/>
 						</div>
-						<div class="right">
-							<div class="concert-time bold"><%= @getTime concert.startTime %></div>
-							<div class="concert-day">Day <%= concert.day %></div>
-						</div>
-						<div class="concert-status <%= if concert.seen then 'seen' else 'unseen' %>"/>
 					</div>
 				<% end %>
 			<% else : %>

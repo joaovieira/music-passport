@@ -11,6 +11,9 @@ body {
 	@include background-size(cover);
 }
 
+h2{
+	margin-top: 0px;
+}
 
 h2, .bold {
 	font-family: 'Proxima Nova Bold', 'Helvetica Neue';
@@ -26,14 +29,22 @@ h2, .bold {
 	font-size: 22px;
 }
 
+.btn.wide {
+	width: 100%;
+}
+
 
 /** Nav bat button and login **/
 .navbar-toggle{
+	padding: 7px 10px;
+	margin-top: 9px;
+	margin-bottom: 9px;
+	color: #777777;
+
 	&#menu{
-		padding: 6px 10px 2px;
+		padding: 4px 8px 0px;
 		border: 0px;
 	}
-	color: #777777;
 
 	.name{
 		display: none;
@@ -81,16 +92,31 @@ h2, .bold {
 
 .panel{
 	background-color: rgba(255,255,255,0.5);
-	padding: 20px;
+	padding: 0px;
 	@include border-radius(3px, 3px);
 	margin-bottom: 15px;
+
+	.title{
+		padding: 13px 13px 10px;
+		background-color: rgba(255,255,255,0.6);
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+
+		h2{
+			font-size: 16px;
+			color: #428bca;
+			margin: 0px;
+		}
+	}
+
+	.content{
+		margin: 15px;
+	}
 }
 
 /** end of Panel styling **/
 
 
 /** Welcome page **/
-
 #welcome{
 	.festival-logo{
 		content: url("../images/sziget.png");
@@ -104,8 +130,11 @@ h2, .bold {
 		margin-top: 0px;
 	}
 
-	h2{ font-size: 30px; }
-	p{ font-size: 16px; }
+	h2{ font-size: 26px; }
+	p{ 
+		font-size: 16px; 
+		margin-bottom: 10px;
+	}
 }
 
 /** end of welcome page **/
@@ -116,48 +145,65 @@ h2, .bold {
 	color: rgba(255,255,255,0.6);
 }
 
-.passport-item{
-	line-height: 1.2;
-	border-bottom: 1px solid rgba(0,0,0,0.3);
-	padding: 20px 0px;
-	position: relative;
+#passport{
+	.content{
+		margin-left: 0px;
+		margin-right: 0px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
 
-	&.last{
-		border-bottom: none;
-	}
-
-	.left{
-		float:left;
-		width: 70%;
-		text-align: left;
-
-		.band-name{
-			font-size: 24px;
-			line-height: 1;
+		&.last{
+			border-bottom: none;	
+			
+			.passport-item{
+				padding-bottom: 0px;
+			}
 		}
 
-		.concert-missing{
-			font-size: 16px;
-		}
-	}
+		.passport-item{
+			line-height: 1.2;
+			margin: 0px 15px 15px;
+			position: relative;
+			cursor: pointer;
 
-	.right{
-		float:right;
-		width: 30%;
-		text-align: right;
-		font-size: 18px;
-	}
+			.left{
+				float:left;
+				max-width: 75%;
+				text-align: left;
 
-	.concert-status{
-		content: url("../images/sziget.png");
-		@include rotate(-15deg);
-		position: absolute;
-		right: 15%;
-		width: 60px;
-		z-index: -1;
+				.band-name{
+					font-size: 24px;
+					line-height: 1.2;
+				}
 
-		&.unseen{
-			display: none;
+				.concert-missing{
+					font-size: 16px;
+				}
+			}
+
+			.right, .concert-status{				
+				position: absolute;
+				top: 0px;
+				right: 0px;
+			}
+
+			.right{
+				float:right;
+				max-width: 25%;
+				*text-align: right;
+				font-size: 16px;
+			}
+
+			.concert-status{
+				content: url("../images/sziget.png");
+				@include rotate(-15deg);
+				width: 60px;
+				right: 15%;
+				z-index: -1;
+
+				&.unseen{
+					display: none;
+				}
+			}
 		}
 	}
 }
@@ -165,18 +211,6 @@ h2, .bold {
 
 
 /** Home screen **/
-.btn.wide {
-	width: 100%;
-}
-
-.panel{
-	.panel-desc{
-		font-size: 18px;
-		color: #428bca;
-		margin-top: 15px;
-	}
-}
-
 #watching{
 	.description{
 		font-size: 16px;
@@ -189,29 +223,48 @@ h2, .bold {
 }
 
 #playing{
-	.concert{
-		font-size: 16px;
-		border-bottom: 1px solid rgba(0,0,0,0.3);
-		padding-bottom: 10px;
-		margin-bottom: 15px;
+	.content{
+		margin-left: 0px;
+		margin-right: 0px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+
+		.concert{
+			font-size: 16px;
+			padding-bottom: 15px;
+			margin-left: 15px;
+			margin-right: 15px;
+			line-height: 1.2;
+
+			.left, .right { display: inline-block; }
+
+			.left { padding-right: 5px }
+			.right { padding-left: 5px }
+
+			.fa{
+				padding-right: 5px;
+			}
+		}
+
+		.band-name{
+			font-size: 24px;
+			line-height: 1.5;		
+			margin-left: 15px;
+			margin-right: 15px;
+		}
 
 		&.last{
-			border-bottom: none;
-			padding-bottom: 0px;
-			margin-bottom: 0px;
-		}
-
-		.left { float:left}
-		.right { float:right}
-
-		.fa{
-			padding-right: 5px;
+			border-bottom: none;	
+			
+			.concert{
+				padding-bottom: 0px;
+			}
 		}
 	}
+}
 
-	.band-name{
-		font-size: 24px;
-		line-height: 1.5;
+#next-concert{
+	p{ 
+		margin-bottom: 10px;
 	}
 }
 
@@ -229,7 +282,7 @@ h2, .bold {
 #notification{
 	display: none;
 	position: absolute;
-	top: 52px;
+	top: 50px;
 	@include border-radius(0px, 0px);
 	z-index: 1;
 	padding: 5px 35px 5px 15px;
@@ -275,10 +328,6 @@ h2, .bold {
   	.festival-logo { max-height: 200px; }
   	p { font-size: inherit; }
   }
-
-	#notification{
-		top: 50px;
-	}
 }
 
 @media (min-width: "330px") {
