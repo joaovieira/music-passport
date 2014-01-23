@@ -111,6 +111,10 @@ h2, .bold {
 	.content{
 		margin: 15px;
 	}
+
+	&.last{
+		margin-bottom: 30px;
+	}
 }
 
 /** end of Panel styling **/
@@ -129,11 +133,18 @@ h2, .bold {
 		padding-top: 0px;
 		margin-top: 0px;
 	}
+}
 
-	h2{ font-size: 26px; }
-	p{ 
-		font-size: 16px; 
-		margin-bottom: 10px;
+#welcome, #lineup{
+	.content{
+		h2{ 
+			font-size: 26px;
+			margin-top: inherit; 
+		}
+		p{ 
+			font-size: 16px; 
+			margin-bottom: 10px;
+		}
 	}
 }
 
@@ -163,11 +174,10 @@ h2, .bold {
 			line-height: 1.2;
 			margin: 0px 15px 15px;
 			position: relative;
-			cursor: pointer;
 
 			.left{
 				float:left;
-				max-width: 75%;
+				max-width: 80%;
 				text-align: left;
 
 				.band-name{
@@ -180,30 +190,33 @@ h2, .bold {
 				}
 			}
 
-			.right, .concert-status{				
-				position: absolute;
-				top: 0px;
-				right: 0px;
-			}
-
 			.right{
 				float:right;
-				max-width: 25%;
-				*text-align: right;
-				font-size: 16px;
+				max-width: 20%;
+				text-align: right;
+				font-size: 14px;
+				padding-top: 2px;
 			}
 
 			.concert-status{
 				content: url("../images/sziget.png");
-				@include rotate(-15deg);
-				width: 60px;
+				@include rotate(-15deg);				
+				position: absolute;
+				top: 0px;
 				right: 15%;
+				width: 50px;
 				z-index: -1;
 
 				&.unseen{
 					display: none;
 				}
 			}
+		}
+
+		> .close{
+			position: relative;
+			top: -15px;
+			padding: 3px;
 		}
 	}
 }
@@ -267,15 +280,16 @@ h2, .bold {
 		margin-bottom: 10px;
 	}
 }
-
-#lineup{
-	margin-bottom: 30px;
-}
 /** end of home Screen **/
 
-.fa-bookmark{
-	padding-left: 5px;
+/** Lineup **/
+#lineup {
+	.fa-bookmark{
+		padding-left: 5px;
+	}
 }
+
+/** End of Lineup **/
 
 
 /** Notification **/

@@ -1,11 +1,12 @@
 <div class="content-wrapper">
 	<h2 class="panel-name" id="passport-title">My Passport</h2>
-	<div class="panel" id="passport" >
+	<div class="panel last" id="passport" >
 		<% if @concerts : %>
 			<% if @concerts.length : %>
 				<% for concert, i in @concerts : %>
 					<div class="content <%= "last" if i is @concerts.length-1 %>">
-						<div class="passport-item clearfix" data-toggle="popover" data-placement="bottom" data-content="Remove" data-original-title="" title="">
+						<button type="button" class="close passport-remove">&times;</button>
+						<div class="passport-item clearfix">
 							<div class="left">
 								<div class="band-name bold"><%= concert.band %></div>
 								<div class="concert-missing"><%= @timeMissing Date.now(), concert.startTime %></div>

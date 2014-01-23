@@ -16,22 +16,28 @@
 	<div class="content-wrapper">
 		<% if not @passport.exists :%>
 			<div class="panel">
-				<h2>Oops! This bracelet doesn't exist</h2>
-				<p>Please scan a valid bracelet and claim it to start using your passport</p>
+				<div class="content">
+					<h2>Oops! This bracelet doesn't exist</h2>
+					<p>Please scan a valid bracelet and claim it to start using your passport</p>
+				</div>
 			</div>
 		<% else if not @passport.own :%>
 			<% if @passport.new :%>
 				<div class="panel">
-					<h2>Congratulations! You've got a new fancy accessory</h2>
-					<p>This bracelet is not registered. Claim it and start using your passport</p>
-					<p>
-						<a href="#" class="btn btn-primary btn-large btn-claim wide">Claim my bracelet</a>
-					</p>
+					<div class="content">
+						<h2>Congratulations! You've got a new fancy accessory</h2>
+						<p>This bracelet is not registered. Claim it and start using your passport</p>
+						<p>
+							<a href="#" class="btn btn-primary btn-large btn-claim wide">Claim my bracelet</a>
+						</p>
+					</div>
 				</div>
 			<% else :%>
 				<div class="panel">
-					<h2>Getting new friends?</h2>
-					<p>This isn't your bracelet. Please scan yours to use your passport</p>
+					<div class="content">
+						<h2>Getting new friends?</h2>
+						<p>This isn't your bracelet. Please scan yours to use your passport</p>
+					</div>
 				</div>
 			<% end %>
 		<% else :%>
@@ -95,7 +101,7 @@
 				</div>
 			</div>
 		<% end %>
-		<div id="lineup" class="panel">
+		<div id="lineup-shortcut" class="panel last">
 			<div class="content">
 				<a href="#" class="btn btn-primary btn-large wide lineup">View Lineup</a>
 			</div>

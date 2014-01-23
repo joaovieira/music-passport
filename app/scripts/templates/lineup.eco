@@ -1,30 +1,35 @@
 <div class="content-wrapper">
 	<h2 class="panel-name" id="passport-title">Lineup</h2>
-	<div id="welcome" class="panel">
-		<% for day, concerts of @lineup.attributes : %>
-			<h1>Day <%= day %></h1>
-			<h2>Main Stage</h2>
-			<% for concert in concerts.mainStage : %>
-				<p>
-					<span class="band"><%= concert.band %></span>
-					<span> <%= "(#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %></span>
+	
+	<% for day, concerts of @lineup.attributes : %>
+		<div id="lineup" class="panel last">
+			<div class="title">
+				<h2>Day <%= day %></h2>
+			</div>
+			<div class="content">
+				<h2>Main Stage</h2>
+				<% for concert in concerts.mainStage : %>
+					<p>
+						<span class="band"><%= concert.band %></span>
+						<span> <%= "(#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %></span>
 
-					<% if @passport and not _.find(@passport, (item) -> item.band is concert.band) : %>
-						<a href="#" class="passport-add"><i class="fa fa-bookmark"></i></span></a>
-					<% end %>
-				</p>
-			<% end %>
-			<h2>Second Stage</h2>
-			<% for concert in concerts.secondStage : %>
-				<p>
-					<span class="band"><%= concert.band %></span>
-					<span> <%= "(#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %></span>
+						<% if @passport and not _.find(@passport, (item) -> item.band is concert.band) : %>
+							<a href="#" class="passport-add"><i class="fa fa-bookmark"></i></span></a>
+						<% end %>
+					</p>
+				<% end %>
+				<h2>Second Stage</h2>
+				<% for concert in concerts.secondStage : %>
+					<p>
+						<span class="band"><%= concert.band %></span>
+						<span> <%= "(#{@getTime concert.startTime} - #{@getTime concert.finishTime})" %></span>
 
-					<% if @passport and not _.find(@passport, (item) -> item.band is concert.band) : %>
-						<a href="#" class="passport-add"><i class="fa fa-bookmark"></i></a>
-					<% end %>
-				</p>
-			<% end %>
-		<% end %>
-	</div>
+						<% if @passport and not _.find(@passport, (item) -> item.band is concert.band) : %>
+							<a href="#" class="passport-add"><i class="fa fa-bookmark"></i></a>
+						<% end %>
+					</p>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
 </div>

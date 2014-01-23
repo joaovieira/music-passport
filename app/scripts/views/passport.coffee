@@ -7,6 +7,10 @@ class musicPassport.Views.Passport extends Backbone.View
 
   template: JST['app/scripts/templates/passport']
 
+  events:
+    "click .passport-remove": "removeFromPassport"
+
+
   initialize: ->
     @model.on "update", @render, this
     @render()
@@ -28,3 +32,8 @@ class musicPassport.Views.Passport extends Backbone.View
     if difference < 0
       "Starts in #{Math.abs Math.round difference} hours"
     else "Past"
+
+
+  removeFromPassport: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
