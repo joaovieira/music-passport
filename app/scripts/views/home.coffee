@@ -62,7 +62,7 @@ class musicPassport.Views.Home extends Backbone.View
 
   timeMissing: (a, b) ->
     difference = (a-b)/(1000*60)
-    if difference > 0 then "#{difference}m" else "0m"
+    if difference > 0 then "#{Math.round difference}m" else "0m"
 
 
   activate: (e) ->
@@ -176,10 +176,10 @@ class musicPassport.Views.Home extends Backbone.View
       picture: "http://joaovieira.github.io/music-passport/images/77238394.fb.jpg"
       caption: "Checked in with Music Passport"
       description: "The Sziget Music Passport keeps your concert checklist at hand, 
-        along with live info from every stage and the full lineup to the rescue"
-    , (response) =>
-      if not response?.id?
-        musicPassport.appView.trigger 'notify', "<strong>Facebook:</strong> Post not published."
+        along with live info from every stage and the full lineup to the rescue."
+    #, (response) =>
+      #if not response?.id?
+      #  musicPassport.appView.trigger 'notify', "<strong>Facebook:</strong> Post not published."
 
 
   getCurrentPosition: ->

@@ -40,7 +40,7 @@
 				<% if @closerStage and not not @closerStage.properties?.playing : %>
 					<h2 class="band"><%= @closerStage.properties.playing %></h2>
 					<div class="description">
-						<span class="bold"><%= @timeMissing @closerStage.properties.finishTime, Date.now() %></span> missing to end
+						<span class="bold"><%= @timeMissing @closerStage.properties.finishtime, Date.now() %></span> missing to end
 					</div>
 					<div class="description">
 						<span class="checkin-count bold"><%= @closerStage.checkinCount %></span> people checked-in at this concert
@@ -61,7 +61,7 @@
 									<span><%= stage.name %></span>
 								</div>
 								<div class="right">
-									<span><i class="fa fa-clock-o"></i><%= @timeMissing stage.properties.finishTime, Date.now() %> </span>
+									<span><i class="fa fa-clock-o"></i><%= @timeMissing stage.properties.finishtime, Date.now() %> </span>
 									<span><i class="fa fa-group"></i><%= stage.checkinCount %></span>
 								</div>
 							</div>

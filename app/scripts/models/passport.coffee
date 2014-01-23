@@ -13,7 +13,7 @@ class musicPassport.Models.Passport extends Backbone.Model
     @wishlist = new musicPassport.Collections.Wishlist()
 
     @on "change", @getWishList, this
-    @wishlist.on "reset change", => @trigger "update"
+    @wishlist.on "reset change add", => @trigger "update"
 
     Backbone.Model.apply this, arguments
 
