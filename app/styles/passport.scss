@@ -68,7 +68,7 @@ h2, .bold {
 	#panel-carousel{
 		.panel-wrapper{
 			.content-wrapper{
-				padding: 35px 20px 0px;
+				padding: 30px 15px 0px;
 				overflow: auto;		
 			}
 		}
@@ -82,6 +82,8 @@ h2, .bold {
 .panel{
 	background-color: rgba(255,255,255,0.5);
 	padding: 20px;
+	@include border-radius(3px, 3px);
+	margin-bottom: 15px;
 }
 
 /** end of Panel styling **/
@@ -171,6 +173,7 @@ h2, .bold {
 	.panel-desc{
 		font-size: 18px;
 		color: #428bca;
+		margin-top: 15px;
 	}
 }
 
@@ -208,8 +211,12 @@ h2, .bold {
 
 	.band-name{
 		font-size: 24px;
-		line-height: 1.8;
+		line-height: 1.5;
 	}
+}
+
+#lineup{
+	margin-bottom: 30px;
 }
 /** end of home Screen **/
 
@@ -268,10 +275,6 @@ h2, .bold {
   	.festival-logo { max-height: 200px; }
   	p { font-size: inherit; }
   }
-
-  .btn.wide {
-		width: auto;
-	}
 
 	#notification{
 		top: 50px;

@@ -30,8 +30,8 @@ class musicPassport.Views.App extends Backbone.View
   login: (e) ->
     e.preventDefault()
     ###data = 
-      'email': "joaoguerravieira@gmail.com"
-      'password': "Click12345"
+      'email': "xxx@gmail.com"
+      'password': "xxx"
 
     Evt.request
       url: '/auth/evrythng'
