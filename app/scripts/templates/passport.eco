@@ -21,7 +21,7 @@
 				<% end %>
 			<% else : %>
 				<!-- wish list empty -->
-				<div class="content">
+				<div class="content last">
 					<p class="empty">You don't have any concert in your passport. Add them to your want-to-see list from the <a href="#lineup" class="bold">Lineup</a>.</p>
 				</div>
 			<% end %>
