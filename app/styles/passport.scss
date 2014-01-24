@@ -330,6 +330,15 @@ h2, .bold {
 }
 /** end of loading **/
 
+/** owl theme **/
+.owl-theme{
+	.owl-wrapper-outer, .owl-wrapper, .owl-item{
+		height: inherit;
+	}
+}
+
+/** end of owl **/
+
 
 @media (min-width: $screen-sm-min) {
 	.navbar-right .avatar{
