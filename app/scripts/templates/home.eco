@@ -15,7 +15,7 @@
 <% else : %>
 	<div class="content-wrapper">
 		<% if not @passport.exists :%>
-			<div class="panel">
+			<div id="not-exist" class="panel">
 				<div class="content">
 					<h2>Oops! This bracelet doesn't exist</h2>
 					<p>Please scan a valid bracelet and claim it to start using your passport</p>
@@ -23,7 +23,7 @@
 			</div>
 		<% else if not @passport.own :%>
 			<% if @passport.new :%>
-				<div class="panel">
+				<div id="new" class="panel">
 					<div class="content">
 						<h2>Congratulations! You've got a new fancy accessory</h2>
 						<p>This bracelet is not registered. Claim it and start using your passport</p>
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			<% else :%>
-				<div class="panel">
+				<div id="friends" class="panel">
 					<div class="content">
 						<h2>Getting new friends?</h2>
 						<p>This isn't your bracelet. Please scan yours to use your passport</p>
